@@ -73,7 +73,7 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public boolean checkUserExist(String email) {
-        return userRepo.findUser(email) !=null ? true : false;
+        return userRepo.findUser(email) != null;
     }
 
     @Override

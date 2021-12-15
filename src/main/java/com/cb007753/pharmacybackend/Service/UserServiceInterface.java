@@ -5,6 +5,7 @@ import com.cb007753.pharmacybackend.Model.RegistrationDTO;
 import com.cb007753.pharmacybackend.Model.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+//user detail service - used as DAO for user authentication
 public interface UserServiceInterface extends UserDetailsService {
 
     User getUser(String email);
