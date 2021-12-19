@@ -1,12 +1,16 @@
 package com.cb007753.pharmacybackend.AndroidConnection;
 
+import com.cb007753.pharmacybackend.Model.Drugs;
 import com.cb007753.pharmacybackend.Model.RegistrationDTO;
 import com.cb007753.pharmacybackend.Model.User;
+import com.cb007753.pharmacybackend.Repository.DrugRepository;
 import com.cb007753.pharmacybackend.Repository.UserRepository;
 import com.cb007753.pharmacybackend.Service.UserService;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/mobile/")
@@ -17,6 +21,9 @@ public class API {
 
     @Autowired
     private UserRepository  userRepository;
+
+    @Autowired
+    private DrugRepository drugRepository;
 
 
     //-----------------------------------------------------------------------------------------------
@@ -57,4 +64,12 @@ public class API {
 
     //-----------------------------------------------------------------------------------------------
 
+    //Display all drugs
+    @GetMapping ( "User/druglist")
+    public List<Drugs> getAllDrugs()
+    {
+
+        return drugRepository.findAll();
+
+    }
 }

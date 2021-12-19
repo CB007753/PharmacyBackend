@@ -13,9 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
-
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -40,15 +37,6 @@ class PharmacyBackendApplicationTests {
 
     }
 
-    //Testing: get all the Drugs
-    //Test Result: Test Success, Displays all drugs available in the database
-    @Test
-    @DisplayName("All Drugs")
-    public void TestGetAllFoods()
-    {
 
-        List<Drugs> foodList= drugRepository.findAll();
-
-    }
 
 }
