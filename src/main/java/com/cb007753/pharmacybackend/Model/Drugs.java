@@ -20,24 +20,26 @@ public class Drugs {
     @Column(name = "price")
     private int price;
 
-    private byte[] image;
+    @Column(name = "unit")
+    private String unit;
+
+
 
     //Constructors
     public Drugs() {
     }
 
-    public Drugs(Long id, String name, byte[] image) {
+    public Drugs(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.image = image;
     }
 
-    public Drugs(Long id, String description, String name, int price, byte[] image) {
+    public Drugs(Long id, String description, String name, int price, String unit) {
         this.id = id;
         this.description = description;
         this.name = name;
         this.price = price;
-        this.image = image;
+        this.unit = unit;
     }
 
     //Getters and setters
@@ -74,11 +76,11 @@ public class Drugs {
         this.price = price;
     }
 
-    public byte[] getImage() {
-        return image;
+    public String getUnit() {
+        return unit;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }
