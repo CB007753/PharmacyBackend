@@ -2,10 +2,10 @@ package com.cb007753.pharmacybackend.Model;
 
 import javax.persistence.*;
 
-//this model is used for drugs available in pharmacy.
+//this model is used for drugs available in supplier market.
 @Entity
-@Table(name = "drugs")
-public class Drugs {
+@Table(name = "buy_drugs")
+public class BuyDrugs {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,25 +25,26 @@ public class Drugs {
     private String unit;
 
 
-
     //Constructors
-    public Drugs() {
-    }
 
-    public Drugs(Long id, String name) {
+    public BuyDrugs(Long id, String name, String description, int price, String unit) {
         this.id = id;
         this.name = name;
-    }
-
-    public Drugs(Long id, String description, String name, int price, String unit) {
-        this.id = id;
         this.description = description;
-        this.name = name;
         this.price = price;
         this.unit = unit;
     }
 
-    //Getters and setters
+    public BuyDrugs(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public BuyDrugs() {
+
+    }
+
+    //Getters and Setters
 
     public Long getId() {
         return id;
@@ -53,20 +54,20 @@ public class Drugs {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getPrice() {

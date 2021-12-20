@@ -37,6 +37,15 @@ class PharmacyBackendApplicationTests {
 
     }
 
+    //Testing: get all the Drugs
+    //Test Result: Test Success, Displays all drugs available in the database(drugs table)
+    @Test
+    @DisplayName("All Drugs")
+    public void TestGetAllDrugs()
+    {
 
+        List<Drugs> foodList= drugRepository.findAll();
+
+    }
 
 }

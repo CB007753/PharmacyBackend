@@ -1,15 +1,16 @@
 package com.cb007753.pharmacybackend.AndroidConnection;
 
-import com.cb007753.pharmacybackend.Model.Drugs;
-import com.cb007753.pharmacybackend.Model.RegistrationDTO;
-import com.cb007753.pharmacybackend.Model.User;
+import com.cb007753.pharmacybackend.Model.*;
+import com.cb007753.pharmacybackend.Repository.BuyDrugRepository;
 import com.cb007753.pharmacybackend.Repository.DrugRepository;
 import com.cb007753.pharmacybackend.Repository.UserRepository;
+import com.cb007753.pharmacybackend.Service.OrderService;
 import com.cb007753.pharmacybackend.Service.UserService;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -24,6 +25,12 @@ public class API {
 
     @Autowired
     private DrugRepository drugRepository;
+
+    @Autowired
+    private BuyDrugRepository buyDrugRepository;
+
+    @Autowired
+    private OrderService orderService;
 
 
     //-----------------------------------------------------------------------------------------------
@@ -64,12 +71,38 @@ public class API {
 
     //-----------------------------------------------------------------------------------------------
 
-    //Display all drugs
+    //Display all drugs in pharmacy
     @GetMapping ( "User/druglist")
     public List<Drugs> getAllDrugs()
     {
 
         return drugRepository.findAll();
+
+    }
+
+    //-----------------------------------------------------------------------------------------------
+
+    //Display all drugs in supplier market
+    @GetMapping ( "User/buydruglist")
+    public List<BuyDrugs> getBuyDrugs()
+    {
+
+        return buyDrugRepository.findAll();
+
+    }
+
+    //-----------------------------------------------------------------------------------------------
+
+    //placing the order(order being saved at order table)
+    @PostMapping("User/placeorder")
+    public JSONObject user_place_order(@RequestBody Order order) throws IOException {
+
+        JSONObject jsonObject=new JSONObject();
+
+        orderService.saveOrder(order);
+
+        jsonObject.put("Response","Order Added");
+        return jsonObject;
 
     }
 }
