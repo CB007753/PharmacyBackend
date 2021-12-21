@@ -76,4 +76,33 @@ class PharmacyBackendApplicationTests {
 
     }
 
+
+    @Test
+    @DisplayName("Update Order Details")
+    public void testUpdate()
+    {
+//        String status="On The Way";
+//        String update_status="Delivered";
+//        String email="shifny@gmail.com";
+//
+//        List<Order> orderList = orderRepository.findByEmailAndStatus(email,status);
+//
+//        //status of the founded order should match "On The Way"
+//       Assertions.assertEquals(status, orderList.get(0).getStatus());
+//        //email of the founded order should match "shifny@gmail.com"
+//      Assertions.assertEquals(email, orderList.get(0).getEmail());
+//
+//        if() {
+//            Order order = new Order();
+//
+//            order.setStatus(update_status);
+//            order.setEmail(email);
+//
+//            orderRepository.save(order);
+//        }
+
+    }
+
+
+
 }

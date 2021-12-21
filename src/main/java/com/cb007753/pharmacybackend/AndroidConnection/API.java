@@ -37,7 +37,7 @@ public class API {
     private OrderRepository orderRepository;
 
 
-    //-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 
     //Register
     @PostMapping("User/Register")
@@ -50,7 +50,7 @@ public class API {
         return jsonObject;
     }
 
-    //-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 
     //Login
     @GetMapping("login/{username}/{password}")
@@ -73,7 +73,7 @@ public class API {
         return jsonObject;
     }
 
-    //-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 
     //Display all drugs in pharmacy
     @GetMapping ( "User/druglist")
@@ -84,7 +84,7 @@ public class API {
 
     }
 
-    //-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 
     //Display all drugs in supplier market
     @GetMapping ( "User/buydruglist")
@@ -95,7 +95,7 @@ public class API {
 
     }
 
-    //-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 
     //placing the order(order being saved at order table)
     @PostMapping("User/placeorder")
@@ -110,7 +110,7 @@ public class API {
 
     }
 
-    //-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 
     //this will only find and display the orders(on the way) ordered by currently active pharmacist.
     @GetMapping("User/onthewayorders/{email}/{status}")
@@ -119,12 +119,28 @@ public class API {
         return orderRepository.findByEmailAndStatus(username,status);
     }
 
-    //-----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 
     //this will only find and display the orders(order history) ordered by currently active pharmacist.
     @GetMapping("User/deliveredorders/{email}/{status}")
     public List<Order> getDeliveredPharmacistOrders(@PathVariable(value = "email")String username,@PathVariable(value = "status")String status)
     {
         return orderRepository.findByEmailAndStatus(username,status);
+    }
+
+//-----------------------------------------------------------------------------------------------
+
+    //this update the order detail's status column to "Delivered".
+    @PostMapping("User/updateorder")
+    public JSONObject update_Order(@RequestBody Order order) throws IOException {
+
+        //save function does the update also
+        JSONObject jsonObject=new JSONObject();
+
+        orderService.saveOrder(order);
+
+        jsonObject.put("Response","Updated");
+        return jsonObject;
+
     }
 }
