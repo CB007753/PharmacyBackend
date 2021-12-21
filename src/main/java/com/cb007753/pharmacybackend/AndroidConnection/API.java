@@ -3,6 +3,7 @@ package com.cb007753.pharmacybackend.AndroidConnection;
 import com.cb007753.pharmacybackend.Model.*;
 import com.cb007753.pharmacybackend.Repository.BuyDrugRepository;
 import com.cb007753.pharmacybackend.Repository.DrugRepository;
+import com.cb007753.pharmacybackend.Repository.OrderRepository;
 import com.cb007753.pharmacybackend.Repository.UserRepository;
 import com.cb007753.pharmacybackend.Service.OrderService;
 import com.cb007753.pharmacybackend.Service.UserService;
@@ -31,6 +32,9 @@ public class API {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
 
     //-----------------------------------------------------------------------------------------------
@@ -104,5 +108,23 @@ public class API {
         jsonObject.put("Response","Order Added");
         return jsonObject;
 
+    }
+
+    //-----------------------------------------------------------------------------------------------
+
+    //this will only find and display the orders(on the way) ordered by currently active pharmacist.
+    @GetMapping("User/onthewayorders/{email}/{status}")
+    public List<Order> getOnTheWayPharmacistOrders(@PathVariable(value = "email")String username,@PathVariable(value = "status")String status)
+    {
+        return orderRepository.findByEmailAndStatus(username,status);
+    }
+
+    //-----------------------------------------------------------------------------------------------
+
+    //this will only find and display the orders(order history) ordered by currently active pharmacist.
+    @GetMapping("User/deliveredorders/{email}/{status}")
+    public List<Order> getDeliveredPharmacistOrders(@PathVariable(value = "email")String username,@PathVariable(value = "status")String status)
+    {
+        return orderRepository.findByEmailAndStatus(username,status);
     }
 }

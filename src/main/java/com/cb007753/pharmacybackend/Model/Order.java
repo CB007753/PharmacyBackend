@@ -2,7 +2,7 @@ package com.cb007753.pharmacybackend.Model;
 
 import javax.persistence.*;
 
-//ORDER is a MySQL reserved word, so iam using backticks to enclose the table name
+//ORDER is a MySQL reserved word, so iam using backticks to enclose the table name order to prevent errors
 @Entity
 @Table(name = "`order`")
 public class Order {
