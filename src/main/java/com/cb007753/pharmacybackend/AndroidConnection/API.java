@@ -143,4 +143,13 @@ public class API {
         return jsonObject;
 
     }
+
+    //-----------------------------------------------------------------------------------------------
+
+    //this will find and get all the orders with status "Delivered".
+    @GetMapping("User/ordersinstock/{status}")
+    public List<Order> getDeliveredOrders(@PathVariable(value = "status")String status)
+    {
+        return orderRepository.findByStatus(status);
+    }
 }
