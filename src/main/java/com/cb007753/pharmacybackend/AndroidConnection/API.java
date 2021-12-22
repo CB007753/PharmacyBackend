@@ -76,6 +76,7 @@ public class API {
 //-----------------------------------------------------------------------------------------------
 
     //Display all drugs in pharmacy
+    //this function was temporily used earlier to test drugs display in home page- test result: success
     @GetMapping ( "User/druglist")
     public List<Drugs> getAllDrugs()
     {
@@ -152,4 +153,14 @@ public class API {
     {
         return orderRepository.findByStatus(status);
     }
+
+    //-----------------------------------------------------------------------------------------------
+
+    //this will find and get all details of user linked with provided email.
+    @GetMapping("User/finduser/{email}")
+    public User getUserByEmail(@PathVariable(value = "email")String username)
+    {
+        return userRepository.findByEmail(username);
+    }
+
 }
