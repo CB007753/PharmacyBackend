@@ -5,6 +5,7 @@ import com.cb007753.pharmacybackend.Repository.BuyDrugRepository;
 import com.cb007753.pharmacybackend.Repository.DrugRepository;
 import com.cb007753.pharmacybackend.Repository.OrderRepository;
 import com.cb007753.pharmacybackend.Repository.UserRepository;
+import com.cb007753.pharmacybackend.Service.ContactService;
 import com.cb007753.pharmacybackend.Service.OrderService;
 import com.cb007753.pharmacybackend.Service.UserService;
 import net.minidev.json.JSONObject;
@@ -35,6 +36,9 @@ public class API {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private ContactService contactService;
 
 
 //-----------------------------------------------------------------------------------------------
@@ -187,6 +191,19 @@ public class API {
         orderService.deleteDrug(id);
 
         return  "success";
+    }
+
+//-----------------------------------------------------------------------------------------------
+
+    //This is used for pharmacist to send message to admin from front end(add the message to database contact table)
+    @PostMapping("User/addmessage")
+    public JSONObject add_message(@RequestBody Contact contact) throws IOException {
+        JSONObject jsonObject=new JSONObject();
+
+        contactService.AddMessage(contact);
+
+        jsonObject.put("Response","Message Sent");
+        return jsonObject;
     }
 
 }
