@@ -163,4 +163,30 @@ public class API {
         return userRepository.findByEmail(username);
     }
 
+    //-----------------------------------------------------------------------------------------------
+
+    //Deleting the order(order which matches the values retrieved)
+    //This does not work- below method is used instead
+    @DeleteMapping("User/deleteorder")
+    public JSONObject user_delete_order(@RequestBody Order order) throws IOException {
+
+        JSONObject jsonObject=new JSONObject();
+
+        orderService.deleteOrder(order);
+
+        jsonObject.put("Response","Order Deleted");
+        return jsonObject;
+
+    }
+//-----------------------------------------------------------------------------------------------
+
+    //Deleting the order(order which matches the id)
+    @GetMapping(value = "User/deletedrug/{id}")
+    public String delete_drug(@PathVariable("id") Long id)
+    {
+        orderService.deleteDrug(id);
+
+        return  "success";
+    }
+
 }

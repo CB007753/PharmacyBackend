@@ -6,18 +6,17 @@ import com.cb007753.pharmacybackend.Model.User;
 import com.cb007753.pharmacybackend.Repository.DrugRepository;
 import com.cb007753.pharmacybackend.Repository.OrderRepository;
 import com.cb007753.pharmacybackend.Repository.UserRepository;
+import com.cb007753.pharmacybackend.Service.OrderService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -31,6 +30,9 @@ class PharmacyBackendApplicationTests {
 
     @Autowired
     OrderRepository orderRepository;
+
+    @Autowired
+    OrderService orderService;
 
     //Testing: find user details by providing email as input
     //Test Result: Test Success, found the details associated with the email, found the role of the user too.
@@ -52,7 +54,7 @@ class PharmacyBackendApplicationTests {
     public void TestGetAllDrugs()
     {
 
-        List<Drugs> foodList= drugRepository.findAll();
+        List<Drugs> drugList= drugRepository.findAll();
 
     }
 
@@ -76,33 +78,17 @@ class PharmacyBackendApplicationTests {
 
     }
 
-
+    //Delete the row from order table which matches the id provided
+    //Test Result: Success, deletes the row which contains the provided id
     @Test
-    @DisplayName("Update Order Details")
-    public void testUpdate()
+    @DisplayName("Delete Order")
+    public void DeleteOrderByID()
     {
-//        String status="On The Way";
-//        String update_status="Delivered";
-//        String email="shifny@gmail.com";
-//
-//        List<Order> orderList = orderRepository.findByEmailAndStatus(email,status);
-//
-//        //status of the founded order should match "On The Way"
-//       Assertions.assertEquals(status, orderList.get(0).getStatus());
-//        //email of the founded order should match "shifny@gmail.com"
-//      Assertions.assertEquals(email, orderList.get(0).getEmail());
-//
-//        if() {
-//            Order order = new Order();
-//
-//            order.setStatus(update_status);
-//            order.setEmail(email);
-//
-//            orderRepository.save(order);
-//        }
+        int id = 6;
+
+        orderService.deleteDrug((long) id);
 
     }
-
 
 
 }
