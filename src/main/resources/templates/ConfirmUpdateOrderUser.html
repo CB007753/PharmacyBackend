@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+        <meta charset="UTF-8">
+        <title>Confirm Order Delivery</title>
+
+    </head>
+<body>
+
+<br>
+
+<div class="container">
+    <div align="center">
+
+        <form th:action="@{/user/updateorder}" action="/user/updateorder" method="post">
+            <div class="form-group">
+
+                <label for="order_id">Order ID</label>
+                <input type="text"
+                       id="order_id"
+                       class="form-control"
+                       th:value="${id}"
+                       name="order_id"
+                       style="width: 300px"
+                       readonly>
+
+                <label for="drugname">Drug Name</label>
+                <input type="text"
+                       id="drugname"
+                       class="form-control"
+                       th:value="${drugname}"
+                       name="drugname"
+                       style="width: 300px"
+                       readonly>
+
+                <label for="price">Price</label>
+                <input type="text"
+                       id="price"
+                       class="form-control"
+                       th:value="${price}"
+                       name="price"
+                       style="width: 300px"
+                       readonly>
+
+                <label for="qnty">Quantity</label>
+                <input type="text"
+                       id="qnty"
+                       class="form-control"
+                       th:value="${quantity}"
+                       style="width: 300px"
+                       name="qnty"
+                       readonly>
+
+                <label for="qnty">Unit</label>
+                <input type="text"
+                       id="unit"
+                       class="form-control"
+                       th:value="${unit}"
+                       name="unit"
+                       style="width: 300px"
+                       readonly>
+
+                <label for="total">Total</label>
+                <input type="text"
+                       id="total"
+                       class="form-control"
+                       th:value="${total}"
+                       name="total"
+                       style="width: 300px"
+                       readonly>
+
+                <label for="email">Email</label>
+                <input type="text"
+                       id="email"
+                       class="form-control"
+                       th:value="${email}"
+                       name="email"
+                       style="width: 300px"
+                       readonly>
+
+                <label for="date">Date</label>
+                <input type="text"
+                       id="date"
+                       class="form-control"
+                       th:value="${date}"
+                       name="date"
+                       style="width: 300px"
+                       readonly>
+
+                <br>
+                <label for="updatestatus">Order Status</label>
+                <select id="updatestatus"  class="form-select form-select-lg mb-3"  name="updatestatus">
+                    <option value="Delivered">Delivered</option>
+                </select>
+<br>
+                <input type="submit" class="btn btn-success" value="UPDATE">
+            </div>
+        </form>
+
+    </div>
+</div>
+</body>
+</html>

@@ -83,7 +83,7 @@
             <td th:text="${Order.date}"></td>
             <td th:text="${Order.status}"></td>
             <td>
-                <a href="#" class="btn btn-success" >UPDATE ORDER</a>
+                <a th:href="@{/user/update/{id}(id=${Order.order_id})}" class="btn btn-success" >UPDATE ORDER</a>
             </td>
         </tr>
         </tbody>

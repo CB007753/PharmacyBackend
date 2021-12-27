@@ -3,6 +3,7 @@ package com.cb007753.pharmacybackend.Service;
 import com.cb007753.pharmacybackend.Model.Order;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface OrderService {
 
@@ -10,6 +11,8 @@ public interface OrderService {
     String saveOrder(Order order);
 
     void deleteOrder(Order order);
+
+    Optional<Order> getOrderByID(Long id);
 
     void deleteDrug(Long id);
 
