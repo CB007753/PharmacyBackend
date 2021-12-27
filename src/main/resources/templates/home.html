@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Home</title>
+</head>
+<body>
+
+<!--Start of Pharmacist Homepage-->
+<div sec:authorize="hasAnyAuthority('ROLE_USER')">
+
+    <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #A8E4A0;">
+        <a class="navbar-brand" href="#">PHARMA - Pharmacist</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"  th:href="" > Buy Drugs </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="">View On the Way Orders</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="" >View Order History</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="" >View Profile</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="">Contact</a>
+                </li>
+
+            </ul>
+
+
+            <li class="nav-link">
+                <a class="nav-link" href="logout">Log Out</a>
+            </li>
+        </div> <!--End of class="collapse navbar-collapse"-->
+
+            </nav>
+
+    <br>
+
+    <div class="card text-center">
+        <div class="card-footer text-muted">
+            Pharma - Pharmacy Management System 2022
+        </div>
+
+    </div><!--End of class="card text-center"-->
+
+</div><!--End of sec:authorize="hasAnyAuthority('ROLE_USER')"-->
+
+<!--End of Pharmacist Homepage-->
+
+
+<!-------------------------------------------------------------------------------------------------------------------->
+
+<!--Start of Admin Homepage-->
+<div sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+
+    <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #A8E4A0;">
+        <a class="navbar-brand" href="#">PHARMA - Admin </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">View All On the Way Orders</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#" >View All Order History</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#" >View All Pharmacist</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">View All Message</a>
+                </li>
+
+            </ul>
+
+
+            <li class="nav-link">
+                <a class="nav-link" href="logout">Log Out</a>
+            </li>
+        </div> <!--End of class="collapse navbar-collapse"-->
+
+    </nav>
+
+    <br>
+
+    <div class="card text-center">
+        <div class="card-footer text-muted">
+            Pharma - Pharmacy Management System 2022
+        </div>
+
+    </div><!--End of class="card text-center"-->
+
+</div><!--End of sec:authorize="hasAnyAuthority('ROLE_USER')"-->
+
+<!--End of Admin Homepage-->
+
+<!-------------------------------------------------------------------------------------------------------------->
+
+<!--Start of Supplier Homepage-->
+<div sec:authorize="hasAnyAuthority('ROLE_SUPPLIER')">
+
+    <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #A8E4A0;">
+        <a class="navbar-brand" href="#">PHARMA - Supplier </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent3" aria-controls="navbarSupportedContent3" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent3">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Add Drug</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#" >View On The Way Orders</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#" >View Delivered Orders</a>
+                </li>
+
+
+            </ul>
+
+
+            <li class="nav-link">
+                <a class="nav-link" href="logout">Log Out</a>
+            </li>
+        </div> <!--End of class="collapse navbar-collapse"-->
+
+    </nav>
+
+    <br>
+
+    <div class="card text-center">
+        <div class="card-footer text-muted">
+            Pharma - Pharmacy Management System 2022
+        </div>
+
+    </div><!--End of class="card text-center"-->
+
+</div><!--End of sec:authorize="hasAnyAuthority('ROLE_USER')"-->
+
+<!--End of Supplier Homepage-->
+
+
+
+</body>
+</html>

@@ -14,6 +14,7 @@ public class RegistrationDTO {
 
     //Constructors
 
+
     public RegistrationDTO(String fullname, String email, String password, String mobile) {
         this.fullname = fullname;
         this.email = email;
@@ -21,6 +22,9 @@ public class RegistrationDTO {
         this.mobile = mobile;
     }
 
+    public RegistrationDTO() {
+
+    }
 
 
     //Getters and Setters

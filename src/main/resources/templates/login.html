@@ -4,8 +4,10 @@
     <meta charset="ISO-8859-1">
     <title>Login</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+          crossorigin="anonymous">
 
 </head>
 <body>
@@ -14,16 +16,31 @@
 <nav class="navbar navbar-light" style="background-color: #A8E4A0;">
     <a class="navbar-brand" href="#" > PHARMA </a>
 </nav>
+<!--header end-->
 
 <br>
 
 <div class="container">
     <div align="center">
 
-<!--    Logo of pharmacy management system    -->
-        <img src="Image/pharma_logo.png" alt="Pharma Logo" style="width:300px;height:220px;">
+
+<!--&lt;!&ndash;    Logo of pharmacy management system    &ndash;&gt;-->
+<!--        <img src="Image/pharma_logo.png" alt="Pharma Logo" style="width:300px;height:220px;">-->
 
         <form th:action="@{/login}" method="post">
+
+            <!-- Error message when email and password is invalid-->
+            <div th:if="${param.error}">
+                <div class="alert alert-danger">Invalid username or
+                    password entered</div>
+
+            </div> <!--End of div th:if="${param.error}" -->
+
+            <!--Logout message displayed after user logs out-->
+            <div th:if="${param.logout}">
+                <div class="alert alert-info">You have been logged out from our application</div>
+
+            </div><!--End of div th:if="${param.logout}" -->
 
             <div class = "form-group">
                 <!--Enter username textview and edit text-->
@@ -52,37 +69,30 @@
             <br><br>
 
             <div align="center">
-                <input type="submit"
-                       name="login-submit"
-                       id="login-submit"
-                       class="form-control btn btn-primary"
-                       value="Log In"
-                       style="color: black;
-                              background-color: #7CFC00;
-                              border-color: green;
+
+                <button type="submit"
+                        name="login-submit"
+                        id="login-submit"
+                        class="btn btn-success"
+                        style="color: white;
                               width:400px;"
-                />
+                >Log In</button>
+
             </div> <!--End of div align="center" for login button -->
 
 
         </form>
 
-        <br><br>
+        <br>
 
         <div align="center">
 
             <div class="form-group">
 
-                <h5>Don't have an account ?</h5>
 
-                <a class="btn btn-primary"
-                   href="/" th:href="@{/registration}"
-                   style="color: black;
-                              background-color: #009E60;
-                              border-color: #7CFC00;"
-                >
-                    Register
-                </a>
+                <span>Don't have an account ? <a href="/" th:href="@{/registration}">Register</a></span>
+
+
 
             </div><!--End of div class="form-group" for register button -->
 
