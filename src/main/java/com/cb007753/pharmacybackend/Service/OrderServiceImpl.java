@@ -5,6 +5,8 @@ import com.cb007753.pharmacybackend.Repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderServiceImpl implements OrderService{
 
@@ -40,6 +42,12 @@ public class OrderServiceImpl implements OrderService{
     public void deleteDrug(Long id) {
         //deletes the order which matches the provided id
         orderRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Order> getOrderByEmailAndStatus(String email, String status) {
+        //finds all the orders that matches the status and email passed
+        return orderRepository.findByEmailAndStatus(email,status);
     }
 
 }
