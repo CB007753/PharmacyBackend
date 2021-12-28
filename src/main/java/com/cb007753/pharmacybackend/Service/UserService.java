@@ -14,6 +14,9 @@ public interface UserService extends UserDetailsService {
     //to save user to database
     User save(RegistrationDTO registrationDTO);
 
+    //to edit profile details
+    User saveUser(User user);
+
     //to check whether the user entered pass is correct
     boolean passwordCheck(String pas_1, String pas_2);
 

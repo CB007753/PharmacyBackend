@@ -5,6 +5,7 @@ import com.cb007753.pharmacybackend.Model.User;
 import com.cb007753.pharmacybackend.Repository.OrderRepository;
 import com.cb007753.pharmacybackend.Repository.UserRepository;
 import com.cb007753.pharmacybackend.Service.OrderService;
+import com.cb007753.pharmacybackend.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -29,6 +29,9 @@ public class UserController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    UserService userService;
 
 
     //Displays all the delivered orders of the logged in pharmacist
@@ -144,7 +147,7 @@ public class UserController {
         return "ViewPharmacyInventoryUser";
     }
 
-    //    -------------------------------------------------------------------------------------------------
+//    -------------------------------------------------------------------------------------------------
 
     //displays all details of the logged in user- view profile
     @RequestMapping(value = "/user/viewprofile/{email}")
@@ -152,20 +155,33 @@ public class UserController {
     {
         User view_profile = userRepository.findByEmail(email);
 
-        //this will be used to edit profile function- these details will be sent to edit profile page
-        model.addAttribute("id",view_profile.getId());
-        model.addAttribute("name",view_profile.getFullname());
-        model.addAttribute("email",view_profile.getEmail());
-        model.addAttribute("contact",view_profile.getMobile());
-        model.addAttribute("password",view_profile.getPassword());
-
         model.addAttribute("view_profile",view_profile);
 
         Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails=(UserDetails)authentication.getPrincipal();
         model.addAttribute("useremail",userDetails);
 
-        //redirecting to ViewPharmacyInventoryUser html page
+        //redirecting to ViewProfile html page
         return "ViewProfile";
     }
+
+    //    ------------------------------------------------------------------------------------------------
+
+    //Gets the user details and adding it to a model to access it in EditProfile page
+    @GetMapping(value = "/user/editprofile/{id}")
+    public String UpdateUserButton(@PathVariable("id") Long id, Model model)
+    {
+        Optional<User> view_profile = userRepository.findById(id);
+
+        model.addAttribute("id",view_profile.get().getId());
+        model.addAttribute("name",view_profile.get().getFullname());
+        model.addAttribute("email",view_profile.get().getEmail());
+        model.addAttribute("contact",view_profile.get().getMobile());
+        model.addAttribute("password",view_profile.get().getPassword());
+
+        //redirecting to EditProfile html page
+        return "EditProfile";
+    }
+
+
 }

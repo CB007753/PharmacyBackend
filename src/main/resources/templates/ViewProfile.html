@@ -124,10 +124,23 @@
 
 <!--------------------------------------------------------------------------------------------------------->
 
+                        <!-- Button -->
+
+
+
+                        <tbody>
+                        <tr th:each="User: ${view_profile}">
+                            <td>
+                            <a th:href="@{/user/editprofile/{id}(id=${view_profile.getId()})}" class="btn btn-success" >Edit Profile</a>
+                            </td>
+                        </tr>
+                        </tbody>
+
+ <!--------------------------------------------------------------------------------------------------------->
+
                     </table>
 
 
-                    <div class="buttons"> <button class="btn btn-success">Edit Profile</button> </div>
 
                 </div><!--end of "text-center mt-3"-->
             </div><!--end of class="card p-3 py-4"-->

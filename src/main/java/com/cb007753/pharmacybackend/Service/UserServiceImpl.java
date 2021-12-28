@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
+
 //--------------------------------------------------------------------------------------------------------
 
     //Constructors
@@ -64,6 +65,24 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
         return userRepository.findByEmail(user.getEmail());
+    }
+
+    //this is used for edit profile function
+    @Override
+    public User saveUser(User user) {
+
+        User user1 =new User(
+                user.getId(),
+                user.getFullname(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getMobile()
+            );
+
+        userRepository.save(user1);
+
+        return userRepository.findByEmail(user.getEmail());
+
     }
 
     @Override
