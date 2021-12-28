@@ -1,11 +1,11 @@
 package com.cb007753.pharmacybackend.Controller;
 
-import com.cb007753.pharmacybackend.Model.Contact;
-import com.cb007753.pharmacybackend.Model.Order;
-import com.cb007753.pharmacybackend.Model.User;
+import com.cb007753.pharmacybackend.Model.*;
+import com.cb007753.pharmacybackend.Repository.BuyDrugRepository;
 import com.cb007753.pharmacybackend.Repository.OrderRepository;
 import com.cb007753.pharmacybackend.Repository.UserRepository;
 import com.cb007753.pharmacybackend.Service.ContactService;
+import com.cb007753.pharmacybackend.Service.DrugService;
 import com.cb007753.pharmacybackend.Service.OrderService;
 import com.cb007753.pharmacybackend.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -39,6 +40,12 @@ public class UserController {
 
     @Autowired
     ContactService contactService;
+
+    @Autowired
+    BuyDrugRepository buyDrugRepository;
+
+    @Autowired
+    DrugService drugService;
 
 //    -------------------------------------------------------------------------------------------------
 
@@ -247,6 +254,104 @@ public class UserController {
 
         return "redirect:/user/contactadminpage?contactunsuccess";
     }
+
+//    -------------------------------------------------------------------------------------------------
+
+    //displays all the drugs in supplier market
+    @RequestMapping(value = "/user/viewallbuydrugs")
+    public String viewAllBuyDrugs(Model model)
+    {
+        List<BuyDrugs> buyDrugsList = buyDrugRepository.findAll();
+
+        model.addAttribute("buyDrugsList",buyDrugsList);
+
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails=(UserDetails)authentication.getPrincipal();
+        model.addAttribute("useremail",userDetails);
+
+        //redirecting to ViewPharmacyInventoryUser html page
+        return "ViewAllBuyDrugs";
+    }
+
+
+//    -------------------------------------------------------------------------------------------------
+
+    //this is the checkout funtion which happens after pharmacist clicks buy
+    @GetMapping(value = "/user/checkout/{id}")
+    public String Checkout(@PathVariable("id") Long id,Model model)
+    {
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("CheckOut");
+
+        Optional<BuyDrugs> drugByID = drugService.getDrugByID(id);
+
+        model.addAttribute("id",drugByID.get().getId());
+        model.addAttribute("name",drugByID.get().getName());
+        model.addAttribute("description",drugByID.get().getDescription());
+        model.addAttribute("price",drugByID.get().getPrice());
+        model.addAttribute("unit",drugByID.get().getUnit());
+
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails=(UserDetails)authentication.getPrincipal();
+        model.addAttribute("useremail",userDetails);
+
+        return "CheckOutUser";
+
+    }
+
+//    -------------------------------------------------------------------------------------------------
+
+    //this will save the order as on the way to order tablle in database
+    @PostMapping(value = "/user/placeorder")
+    public String placeOrder(@Valid Order order,
+                             @RequestParam("name") String name,
+                             @RequestParam("price")int price,
+                             @RequestParam("qty")int qty,
+                             @RequestParam("unit") String unit,Model model) {
+        try {
+
+             Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+            UserDetails userDetails=(UserDetails)authentication.getPrincipal();
+            order.setEmail(userDetails.getUsername());
+
+            order.setDrugname(name);
+            order.setStatus("On The Way");
+            order.setPrice(price);
+            order.setQnty(qty);
+
+            //calculating the total price(( 1 item price * no. of items) + delivery charge)
+            int total= (price*qty)+100;
+
+            order.setTotal(total);
+            order.setUnit(unit);
+
+            DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime localDateTime=LocalDateTime.now();
+            String dateandtime =dateTimeFormatter.format(localDateTime);
+
+            order.setDate(dateandtime);
+
+            orderService.saveOrder(order);
+
+            model.addAttribute("drugname",order.getDrugname());
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        model.addAttribute("drugname",name);
+        model.addAttribute("qty",qty);
+        model.addAttribute("price",price);
+        model.addAttribute("total",(price*qty)+100);
+        model.addAttribute("unit",unit);
+
+        return "OrderReceiptUser";
+    }
+
+//    -------------------------------------------------------------------------------------------------
 
 
 }

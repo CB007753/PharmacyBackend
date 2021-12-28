@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+
+</head>
+<body>
+
+<!--Start of header-->
+<nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #A8E4A0;">
+    <a class="navbar-brand" th:href="@{/user/viewallorders/{status}(status='Delivered')}">PHARMA - Pharmacist</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/user/viewallorders/{status}(status='Delivered')}">Home <span class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link"  th:href="@{/user/viewallbuydrugs}" > Buy Drugs </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/user/viewonthewayorders/{email}/{status}(email=${useremail.getUsername()},status='On The Way')}">View On the Way Orders</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/user/viewdeliveredorders/{email}/{status}(email=${useremail.getUsername()},status='Delivered')}" >View Order History</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/user/viewprofile/{email}(email=${useremail.getUsername()})}" >View Profile</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/user/contactadminpage}">Contact Admin</a>
+            </li>
+
+        </ul>
+
+
+        <li class="nav-link">
+            <a class="nav-link" th:href="@{/logout}">Log Out</a>
+        </li>
+    </div> <!--End of class="collapse navbar-collapse"-->
+
+</nav>
+<!--End of Header-->
+
+
+<form th:action="@{/user/placeorder}" action="/user/placeorder" method="post">
+
+
+    <div class="container m-3">
+
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-7">
+                <div class="card p-3 py-3 ">
+
+
+
+
+                <div align="center">
+                    <h3>Checkout</h3>
+                    <br>
+
+
+                        <label for="name"><h5>Item : </h5></label>
+                        <input class="btn-outline-success" type="text" id="name" th:value="${name}" name="name" readonly>
+                    <br>
+
+                        <label for="price"><h5>Price : </h5></label>
+                        <input class="btn-outline-success" type="text" id="price" th:value="${price}" name="price" readonly>
+                    <br>
+
+                        <label for="unit"><h5>Unit : </h5></label>
+                        <input class="btn-outline-success" type="text" id="unit" th:value="${unit}" name="unit" readonly>
+                        <br><br>
+                        <label for="deliverycharge"><h5>Delivery Charge : </h5></label>
+                    <br>
+                        <input class="btn-outline-success" type="text" id="deliverycharge" th:value="Rs.100.00" name="deliverycharge" readonly>
+                    <br><br>
+
+                        <label for="qty"><h5>Select Quantity:</h5> </label>
+
+                        <input type="number" id="qty" max="100" min="10" name="qty" required>
+                        <input type="button" class="btn-dark" onclick="getTotal()" value="Add">
+
+                    <br> <br>
+
+                        <h4>Total: Rs.<span id="total" th:name="total"></span>.00</h4>
+
+                    <br>
+
+
+
+
+
+                    <div class="form-group">
+                        <h5 sec:authentication="principal.username"  th:name="email" id="email"><i>Email</i></h5>
+                        <input class="btn-outline-success" type="text"  th:action="@{/user/username}" th:name="email" hidden>
+                    </div>
+
+
+
+                </div><!--    End of align center-->
+            </div><!--End of class="card p-3 py-4"-->
+            </div><!--End of class="col-md-7"-->
+        </div><!--    End of row d flex-->
+
+
+
+
+
+        <div align="center">
+
+            <button type="submit" class="btn btn-success">Place Order</button>
+
+        </div><!--End of align center-->
+
+    </div><!--End of container-->
+
+
+</form>
+</body>
+</html>
+
+
+
+
+<script>
+    function getTotal() {
+
+        price=document.getElementById("price").value;
+        qty=document.getElementById("qty").value;
+        document.getElementById("total").innerHTML=(price*qty)+100;
+
+    }
+</script>

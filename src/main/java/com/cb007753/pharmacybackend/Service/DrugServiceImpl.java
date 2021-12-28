@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DrugServiceImpl implements DrugService{
@@ -28,5 +29,11 @@ public class DrugServiceImpl implements DrugService{
     @Override
     public List<BuyDrugs> getBuyDrugs() {
         return buyDrugRepository.findAll();
+    }
+
+    //used to get the details of the selected buy drugs and display in checkout page
+    @Override
+    public Optional<BuyDrugs> getDrugByID(Long id) {
+        return buyDrugRepository.findById(id);
     }
 }
