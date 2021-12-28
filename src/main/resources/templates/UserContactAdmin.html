@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Pharmacy Inventory</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <meta charset="UTF-8">
+    <title>Contact Admin</title>
 </head>
 <body>
 
-<!--Start Of Header-->
+<!--Start of Header-->
 <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #A8E4A0;">
     <a class="navbar-brand" th:href="@{/user/viewallorders/{status}(status='Delivered')}">PHARMA - Pharmacist</a>
 
@@ -52,37 +57,43 @@
 </nav>
 <!--End of Header-->
 
+<form th:action="@{/user/contactadmin}" method="post">
+    <div align="center">
+        <br><br>
+        <div class="card mb-3">
+            <div th:if="${param.contactsuccess}">
+                <div class="alert alert-info">Message Sent Successfully</div>
+            </div>
+            <div th:if="${param.contactunsuccess}">
+                <div class="alert alert-danger">Message not sent, Something went wrong !</div>
+            </div>
 
-<br>
-<div align="center"> <h5>Pharma Inventory</h5></div>
+            <div align="center">
+
+                <div class="text-center"> <img src="https://cdn.dribbble.com/users/1064409/screenshots/3853252/media/062307e97deae5e3eda6e3b55ca439fc.jpg" width="280" class="ratio-16x9" alt="Pharma Logo"> </div>
+
+            </div>
+            <label for="msg"><h4>Contact Admin</h4></label>
+
+            <div align="center">
+
+                <input type="text"
+                       class="form-control"
+                       id="msg" name="msg"
+                       placeholder="Enter your message/complaint"
+                       style="height: 100px; width: 500px; text-align: center"
+                       required>
+                <br>
+
+                <button type="submit" class="btn btn-success" style="width: 150px;">Send</button>
+                <br><br>
+            </div>
+
+        </div>
+    </div>
+</form>
 
 
-<div align="center">
-    <table class="table">
-        <thead class="thead-light">
-        <tr>
-
-            <th scope="col">Name</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Unit</th>
-            <th scope="col">Price</th>
-            <th scope="col">Added By</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="Order: ${pharmacist_orderlist}">
-            <td th:text="${Order.drugname}"></td>
-            <td th:text="${Order.qnty}"></td>
-            <td th:text="${Order.unit}"></td>
-            <td th:text="${Order.price}"></td>
-            <td th:text="${Order.email}"></td>
-        </tr>
-        </tbody>
-    </table>
-</div><!--END OF div align center-->
-
-<br><br>
 <!--Footer-->
 <div class="card text-center">
     <div class="card-footer text-muted fixed-bottom">

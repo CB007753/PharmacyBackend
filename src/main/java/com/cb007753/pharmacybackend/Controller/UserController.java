@@ -1,9 +1,11 @@
 package com.cb007753.pharmacybackend.Controller;
 
+import com.cb007753.pharmacybackend.Model.Contact;
 import com.cb007753.pharmacybackend.Model.Order;
 import com.cb007753.pharmacybackend.Model.User;
 import com.cb007753.pharmacybackend.Repository.OrderRepository;
 import com.cb007753.pharmacybackend.Repository.UserRepository;
+import com.cb007753.pharmacybackend.Service.ContactService;
 import com.cb007753.pharmacybackend.Service.OrderService;
 import com.cb007753.pharmacybackend.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +37,10 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    ContactService contactService;
+
+//    -------------------------------------------------------------------------------------------------
 
     //Displays all the delivered orders of the logged in pharmacist
     @RequestMapping(value = "/user/viewdeliveredorders/{email}/{status}")
@@ -70,6 +78,7 @@ public class UserController {
     }
 
 //    ------------------------------------------------------------------------------------------------
+
     //Gets the order details and adding it to a model to access it in ConfirmUpdateOrderUser page
     @GetMapping(value = "/user/update/{id}")
     public String UpdateStatus(@PathVariable("id") Long id,Model model)
@@ -181,6 +190,62 @@ public class UserController {
 
         //redirecting to EditProfile html page
         return "EditProfile";
+    }
+
+    //    ------------------------------------------------------------------------------------------------
+
+    //Display Contact Admin Page
+    @GetMapping(value = "/user/contactadminpage")
+    public String ContactAdminPage(Model model)
+    {
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails=(UserDetails)authentication.getPrincipal();
+        model.addAttribute("useremail",userDetails);
+
+        return "UserContactAdmin";
+    }
+
+//    ------------------------------------------------------------------------------------------------
+
+    //sends the message entered by currently logged in pharmacist to admin with the date and time
+    @PostMapping(value = "/user/contactadmin")
+    public String contactAdmin(@Valid Contact contact, @RequestParam ("msg") String msg) {
+
+        try {
+
+            if (contact == null) {
+
+                return "redirect:/user/contactadminpage?contactunsuccess";
+
+            }
+
+            //setting message
+            contact.setMessage(msg);
+
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            contact.setEmail(userDetails.getUsername());
+
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime localDateTime = LocalDateTime.now();
+
+            //setting date
+            contact.setDate(dateTimeFormatter.format(localDateTime));
+
+            //adds the message to contact table in database
+            boolean message = contactService.AddMessage(contact);
+            if (message) {
+
+                return "redirect:/user/contactadminpage?contactsuccess";
+
+            }
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/user/contactadminpage?contactunsuccess";
     }
 
 
