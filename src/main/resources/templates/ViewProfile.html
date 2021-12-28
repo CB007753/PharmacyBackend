@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>View Profile</title>
+
+</head>
+<body>
+
+<!--Start of Header-->
+<nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #A8E4A0;">
+    <a class="navbar-brand" th:href="@{/user/viewallorders/{status}(status='Delivered')}">PHARMA - Pharmacist</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/user/viewallorders/{status}(status='Delivered')}">Home <span class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link"  th:href="@{/user/buydrugs}" > Buy Drugs </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/user/viewonthewayorders/{email}/{status}(email=${useremail.getUsername()},status='On The Way')}">View On the Way Orders</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/user/viewdeliveredorders/{email}/{status}(email=${useremail.getUsername()},status='Delivered')}" >View Order History</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/user/viewprofile/{email}(email=${useremail.getUsername()})}" >View Profile</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/user/contactpage}">Contact Admin</a>
+            </li>
+
+        </ul>
+
+
+        <li class="nav-link">
+            <a class="nav-link" th:href="@{/logout}">Log Out</a>
+        </li>
+    </div> <!--End of class="collapse navbar-collapse"-->
+
+</nav>
+<!--End of Header-->
+
+<div class="container mt-2" >
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-7">
+            <div class="card p-3 py-4">
+                <div class="text-center"> <img src="https://cdn.dribbble.com/users/1064409/screenshots/3853252/media/062307e97deae5e3eda6e3b55ca439fc.jpg" width="150" class="ratio-16x9"> </div>
+                <div class="text-center mt-3">
+                    <span class="bg-secondary p-1 px-4 rounded text-white">Pharmacist</span>
+
+
+                    <table class="table">
+
+<!--------------------------------------------------------------------------------------------------------->
+
+                        <!-- Name-->
+
+                        <thead class="thead-dark">
+                        <tr>
+
+                            <th scope="col">Name</th>
+
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="User: ${view_profile}">
+                            <td th:text="${view_profile.getFullname()}"></td>
+                        </tr>
+                        </tbody>
+
+<!--------------------------------------------------------------------------------------------------------->
+
+                                <!-- Email-->
+
+                        <thead class="thead-light">
+                        <tr>
+
+                            <th scope="col">Email</th>
+
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="User: ${view_profile}">
+                            <td th:text="${view_profile.email}"></td>
+                        </tr>
+                        </tbody>
+
+<!--------------------------------------------------------------------------------------------------------->
+
+                        <!-- Mobile -->
+
+                        <thead class="thead-light">
+                        <tr>
+
+                            <th scope="col">Contact</th>
+
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="User: ${view_profile}">
+                            <td th:text="${view_profile.getMobile()}"></td>
+                        </tr>
+                        </tbody>
+
+<!--------------------------------------------------------------------------------------------------------->
+
+                    </table>
+
+
+                    <div class="buttons"> <button class="btn btn-success">Edit Profile</button> </div>
+
+                </div><!--end of "text-center mt-3"-->
+            </div><!--end of class="card p-3 py-4"-->
+        </div><!--end of class="col-md-7"-->
+    </div><!--end of class="row d-flex justify-content-center"-->
+</div><!--end of container div-->
+
+
+
+<!--Footer-->
+<div class="card text-center">
+    <div class="card-footer text-muted fixed-bottom">
+        Pharma - Pharmacy Management System 2022
+    </div>
+
+</div><!--End of class="card text-center"-->
+<!--End of Footer-->
+
+</body>
+</html>

@@ -14,18 +14,29 @@ public class MainController {
     @GetMapping("/login")
     public String login(Model model)
     {
+        //this redirects user to the login page
         return "login";
     }
 
     @GetMapping("/")
     public String home(Model model)
     {
-        ModelAndView modelAndView=new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("home");
-        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         model.addAttribute("useremail",userDetails);
+
+        //this redirects user to the home page, home.html will check the role of the user and display the homepage based on the role
         return "home";
+    }
+
+    @GetMapping("/logout")
+    public String logout(Model model)
+    {
+        //this logs out the user
+        return "logout";
     }
 
 }

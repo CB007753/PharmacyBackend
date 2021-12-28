@@ -2,10 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>On The Way Orders</title>
+    <title>Pharmacy Inventory</title>
 </head>
 <body>
 
+<!--Start Of Header-->
 <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #A8E4A0;">
     <a class="navbar-brand" th:href="@{/user/viewallorders/{status}(status='Delivered')}">PHARMA - Pharmacist</a>
 
@@ -50,41 +51,32 @@
 
 </nav>
 <!--End of Header-->
+
+
 <br>
-<div align="center"> <h5>On The Way Orders</h5></div>
+<div align="center"> <h5>Pharma Inventory</h5></div>
 
 
 <div align="center">
     <table class="table">
         <thead class="thead-light">
         <tr>
-            <th scope="col">Order ID</th>
+
             <th scope="col">Name</th>
             <th scope="col">Quantity</th>
             <th scope="col">Unit</th>
             <th scope="col">Price</th>
-            <th scope="col">Total Price</th>
-            <th scope="col">Pharmacist</th>
-            <th scope="col">Ordered Date</th>
-            <th scope="col">Status</th>
-            <th scope="col">Action</th>
+            <th scope="col">Added By</th>
 
         </tr>
         </thead>
         <tbody>
         <tr th:each="Order: ${pharmacist_orderlist}">
-            <td th:text="${Order.order_id}"></td>
             <td th:text="${Order.drugname}"></td>
             <td th:text="${Order.qnty}"></td>
             <td th:text="${Order.unit}"></td>
             <td th:text="${Order.price}"></td>
-            <td th:text="${Order.total}"></td>
             <td th:text="${Order.email}"></td>
-            <td th:text="${Order.date}"></td>
-            <td th:text="${Order.status}"></td>
-            <td>
-                <a th:href="@{/user/update/{id}(id=${Order.order_id})}" class="btn btn-success" >UPDATE ORDER</a>
-            </td>
         </tr>
         </tbody>
     </table>

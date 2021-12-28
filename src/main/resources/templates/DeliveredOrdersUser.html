@@ -7,7 +7,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #A8E4A0;">
-    <a class="navbar-brand" href="#">PHARMA - Pharmacist</a>
+    <a class="navbar-brand" th:href="@{/user/viewallorders/{status}(status='Delivered')}">PHARMA - Pharmacist</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -17,7 +17,7 @@
         <ul class="navbar-nav mr-auto">
 
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" th:href="@{/user/viewallorders/{status}(status='Delivered')}">Home <span class="sr-only">(current)</span></a>
             </li>
 
             <li class="nav-item">
@@ -37,14 +37,14 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/user/contactpage}">Contact</a>
+                <a class="nav-link" th:href="@{/user/contactpage}">Contact Admin</a>
             </li>
 
         </ul>
 
 
         <li class="nav-link">
-            <a class="nav-link" href="logout">Log Out</a>
+            <a class="nav-link" th:href="@{/logout}">Log Out</a>
         </li>
     </div> <!--End of class="collapse navbar-collapse"-->
 
@@ -91,7 +91,7 @@
 <br><br>
 <!--Footer-->
 <div class="card text-center">
-    <div class="card-footer text-muted">
+    <div class="card-footer text-muted fixed-bottom">
         Pharma - Pharmacy Management System 2022
     </div>
 
