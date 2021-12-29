@@ -53,9 +53,8 @@ public class SupplierController {
 
 
 //    -------------------------------------------------------------------------------------------------
-//    -------------------------------------------------------------------------------------------------
 
-    //displays all the drugs in supplier market
+    //displays all the on the way orders
     @RequestMapping(value = "/supplier/allotworders/{status}")
     public String viewAllOTWOrders(@PathVariable("status") String status, Model model)
     {
@@ -74,11 +73,31 @@ public class SupplierController {
 
 //    -------------------------------------------------------------------------------------------------
 
+    //this deletes the selected drug from buy_drug table in database
     @GetMapping(value = "/supplier/deletedrug/{id}")
     public String deleteDrug(@PathVariable("id") Long id)
     {
         drugService.deleteFile(id);
         return  "redirect:/supplier/allbuydrugs?deletesuccess";
     }
+
+//    -------------------------------------------------------------------------------------------------
+
+    //displays all the delivered orders
+    @RequestMapping(value = "/supplier/alldeliveredorders/{status}")
+    public String viewAllDeliveredOrders(@PathVariable("status") String status, Model model)
+    {
+        List<Order> supplierDeliveredList = orderRepository.findByStatus(status);
+
+        model.addAttribute("supplierDeliveredList",supplierDeliveredList);
+
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails=(UserDetails)authentication.getPrincipal();
+        model.addAttribute("useremail",userDetails);
+
+        //redirecting to ViewPharmacyInventoryUser html page
+        return "ViewAllDeliveredSupplier";
+    }
+
 
 }
