@@ -131,7 +131,7 @@
 <div sec:authorize="hasAnyAuthority('ROLE_SUPPLIER')">
 
     <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #A8E4A0;">
-        <a class="navbar-brand" href="#">PHARMA - Supplier </a>
+        <a class="navbar-brand" th:href="@{/supplier/allbuydrugs}">PHARMA - Supplier </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent3" aria-controls="navbarSupportedContent3" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -141,7 +141,7 @@
             <ul class="navbar-nav mr-auto">
 
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" th:href="@{/supplier/allbuydrugs}">Home <span class="sr-only">(current)</span></a>
                 </li>
 
                 <li class="nav-item">
@@ -149,7 +149,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#" >View On The Way Orders</a>
+                    <a class="nav-link" th:href="@{/supplier/allotworders/{status}(status='On The Way')}" >View On The Way Orders</a>
                 </li>
 
                 <li class="nav-item">
