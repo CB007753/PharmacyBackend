@@ -1,0 +1,98 @@
+<!--This is a Supplier Page-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Delivered Orders</title>
+</head>
+<body>
+
+<!--Start of header-->
+<nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #A8E4A0;">
+    <a class="navbar-brand" th:href="@{/admin/allusers}">PHARMA - Admin </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/admin/allusers}">Home <span class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/allotworders/{status}(status='On The Way')}">View On the Way Orders</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/alldeliveredorders/{status}(status='Delivered')}" >View Order History</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/allusers}" >View All Users</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/allmessages}">View All Message</a>
+            </li>
+
+        </ul>
+
+
+        <li class="nav-link">
+            <a class="nav-link" th:href="@{/logout}">Log Out</a>
+        </li>
+    </div> <!--End of class="collapse navbar-collapse"-->
+
+</nav>
+<!--End of Header-->
+
+<br>
+<div align="center"> <h5>Delivered Orders of Pharma</h5></div>
+
+
+<div align="center">
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Pharmacist</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Unit</th>
+            <th scope="col">Price</th>
+            <th scope="col">Ordered Date</th>
+            <th scope="col">Status</th>
+            <th scope="col">Total</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="Order: ${adminDeliveredList}">
+            <td th:text="${Order.getDrugname()}"></td>
+            <td th:text="${Order.getEmail()}"></td>
+            <td th:text="${Order.getQnty()}"></td>
+            <td th:text="${Order.getUnit()}"></td>
+            <td th:text="${Order.getPrice()}"></td>
+            <td th:text="${Order.getDate()}"></td>
+            <td th:text="${Order.getStatus()}"></td>
+            <td th:text="${Order.getTotal()}"></td>
+
+        </tr>
+        </tbody>
+    </table>
+</div><!--END OF div align center-->
+
+<br><br>
+<!--Footer-->
+<div class="card text-center">
+    <div class="card-footer text-muted fixed-bottom">
+        Pharma - Pharmacy Management System 2022
+    </div>
+
+</div><!--End of class="card text-center"-->
+<!--End of Footer-->
+
+</body>
+</html>

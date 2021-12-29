@@ -17,6 +17,9 @@ public interface UserService extends UserDetailsService {
     //to edit profile details
     User saveUser(User user);
 
+    //Admin- delete user by id
+    void deleteFile(Long id);
+
     //to check whether the user entered pass is correct
     boolean passwordCheck(String pas_1, String pas_2);
 

@@ -86,6 +86,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void deleteFile(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    @Override
     public boolean passwordCheck(String pas_1, String pas_2) {
         return bCryptPasswordEncoder.matches(pas_1, pas_2);
     }
