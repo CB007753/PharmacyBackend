@@ -7,6 +7,7 @@ import com.cb007753.pharmacybackend.Repository.DrugRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,4 +44,26 @@ public class DrugServiceImpl implements DrugService{
         buyDrugRepository.deleteById(id);
 
     }
+
+    //this is called by supplier to add drug to supplier market(buy drugs table)
+    @Override
+    public boolean saveDrug(BuyDrugs buyDrugs) {
+        try
+        {
+            if(buyDrugs != null)
+            {
+                buyDrugRepository.save(buyDrugs);
+                return true;
+            }
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+        return false;
+    }
+
+
 }

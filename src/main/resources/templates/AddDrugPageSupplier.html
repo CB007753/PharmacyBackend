@@ -1,9 +1,8 @@
-<!--This is a Supplier Page-->
+<!--This is a supplier page-->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Supplier Drugs</title>
 </head>
 <body>
 
@@ -47,45 +46,61 @@
 <!--End of Header-->
 
 <div align="center">
-    <div th:if="${param.deletesuccess}">
-        <div class="alert alert-info">Item Deleted Successfully</div>
+
+    <!-- success message -->
+    <div th:if="${param.success}">
+        <div class="alert alert-success">Drug Added Successfully !</div>
+    </div>
+    <!-- unsuccess message -->
+    <div th:if="${param.unsuccess}">
+        <div class="alert alert-danger">Something Went Wrong. Maybe the drug you're trying to add may already exist. Try removing it to add a new one with same name</div>
     </div>
 </div>
 
 
-<br>
-<div align="center"> <h5>Supplier Market</h5></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <div align="center">
+            <div class="card p-3 py-4" >
+
+                <form th:action="@{/supplier/adddrugtomarket}" method="post" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <label for="name">Drug Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Drug Name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" id="description" name="description" placeholder="Description" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" class="form-control" id="price" name="price" placeholder="Price"required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Unit</label>
+                        <input type="text" class="form-control" id="unit" name="unit" placeholder="Unit"required>
+                    </div>
+
+                    <div align="center">
+                        <button type="submit" class="btn btn-success">Add This To Market</button>
+                    </div>
+
+                </form>
+
+            </div><!--End of card p-3 py-4-->
+        </div>
+
+        </div><!--End of col-md-6-->
+    </div><!--End of class row-->
+</div><!--End of container-->
 
 
-<div align="center">
-    <table class="table">
-        <thead class="thead-light">
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Price</th>
-            <th scope="col">Unit</th>
-            <th scope="col">Action</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="BuyDrugs: ${supplierBuyDrugsList}">
-            <td th:text="${BuyDrugs.getId()}"></td>
-            <td th:text="${BuyDrugs.getName()}"></td>
-            <td th:text="${BuyDrugs.getDescription()}"></td>
-            <td th:text="${BuyDrugs.getPrice()}"></td>
-            <td th:text="${BuyDrugs.getUnit()}"></td>
-            <td>
-                <a th:href="@{/supplier/deletedrug/{id}(id=${BuyDrugs.getId()})}" class="btn btn-success" style="width: 100px" >Remove</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div><!--END OF div align center-->
-
-<br><br>
 <!--Footer-->
 <div class="card text-center">
     <div class="card-footer text-muted fixed-bottom">
@@ -94,6 +109,5 @@
 
 </div><!--End of class="card text-center"-->
 <!--End of Footer-->
-
 </body>
 </html>

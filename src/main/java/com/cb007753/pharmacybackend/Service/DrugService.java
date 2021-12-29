@@ -3,6 +3,7 @@ package com.cb007753.pharmacybackend.Service;
 import com.cb007753.pharmacybackend.Model.BuyDrugs;
 import com.cb007753.pharmacybackend.Model.Drugs;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,4 +16,6 @@ public interface DrugService {
     Optional<BuyDrugs> getDrugByID(Long id);
 
     void deleteFile(Long id);
+
+    boolean saveDrug(BuyDrugs buyDrugs);
 }
