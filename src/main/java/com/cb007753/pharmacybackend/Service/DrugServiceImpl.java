@@ -36,4 +36,11 @@ public class DrugServiceImpl implements DrugService{
     public Optional<BuyDrugs> getDrugByID(Long id) {
         return buyDrugRepository.findById(id);
     }
+
+    @Override
+    public void deleteFile(Long id) {
+
+        buyDrugRepository.deleteById(id);
+
+    }
 }

@@ -46,6 +46,13 @@
 </nav>
 <!--End of Header-->
 
+<div align="center">
+    <div th:if="${param.deletesuccess}">
+        <div class="alert alert-info">Item Deleted Successfully</div>
+    </div>
+</div>
+
+
 <br>
 <div align="center"> <h5>Supplier Market</h5></div>
 
@@ -71,7 +78,7 @@
             <td th:text="${BuyDrugs.getPrice()}"></td>
             <td th:text="${BuyDrugs.getUnit()}"></td>
             <td>
-                <a href="#" class="btn btn-success" style="width: 100px" >Remove</a>
+                <a th:href="@{/supplier/deletedrug/{id}(id=${BuyDrugs.getId()})}" class="btn btn-success" style="width: 100px" >Remove</a>
             </td>
         </tr>
         </tbody>

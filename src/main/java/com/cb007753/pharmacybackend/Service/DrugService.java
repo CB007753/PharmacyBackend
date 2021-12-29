@@ -13,4 +13,6 @@ public interface DrugService {
     List<BuyDrugs> getBuyDrugs();
 
     Optional<BuyDrugs> getDrugByID(Long id);
+
+    void deleteFile(Long id);
 }

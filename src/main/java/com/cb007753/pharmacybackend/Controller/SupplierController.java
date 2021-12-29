@@ -4,6 +4,7 @@ import com.cb007753.pharmacybackend.Model.BuyDrugs;
 import com.cb007753.pharmacybackend.Model.Order;
 import com.cb007753.pharmacybackend.Repository.BuyDrugRepository;
 import com.cb007753.pharmacybackend.Repository.OrderRepository;
+import com.cb007753.pharmacybackend.Service.DrugService;
 import com.cb007753.pharmacybackend.Service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -11,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -27,6 +29,9 @@ public class SupplierController {
 
     @Autowired
     OrderService orderService;
+
+    @Autowired
+    DrugService drugService;
 
 //    -------------------------------------------------------------------------------------------------
 
@@ -69,6 +74,11 @@ public class SupplierController {
 
 //    -------------------------------------------------------------------------------------------------
 
-
+    @GetMapping(value = "/supplier/deletedrug/{id}")
+    public String deleteDrug(@PathVariable("id") Long id)
+    {
+        drugService.deleteFile(id);
+        return  "redirect:/supplier/allbuydrugs?deletesuccess";
+    }
 
 }
