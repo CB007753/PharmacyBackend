@@ -78,7 +78,7 @@
             <td th:text="${BuyDrugs.getPrice()}"></td>
             <td th:text="${BuyDrugs.getUnit()}"></td>
             <td>
-                <a th:href="@{/supplier/deletedrug/{id}(id=${BuyDrugs.getId()})}" class="btn btn-success" style="width: 100px" >Remove</a>
+                <a th:href="@{/supplier/deletedrugpage/{id}(id=${BuyDrugs.getId()})}" class="btn btn-success" style="width: 100px" >Remove</a>
             </td>
         </tr>
         </tbody>

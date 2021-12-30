@@ -1,13 +1,10 @@
 package com.cb007753.pharmacybackend.Controller;
 
-import com.cb007753.pharmacybackend.Model.BuyDrugs;
-import com.cb007753.pharmacybackend.Model.Drugs;
-import com.cb007753.pharmacybackend.Model.Order;
+import com.cb007753.pharmacybackend.Model.*;
 import com.cb007753.pharmacybackend.Repository.BuyDrugRepository;
 import com.cb007753.pharmacybackend.Repository.OrderRepository;
 import com.cb007753.pharmacybackend.Service.DrugService;
 import com.cb007753.pharmacybackend.Service.OrderService;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,17 +12,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class SupplierController {
@@ -79,12 +69,29 @@ public class SupplierController {
         return "ViewAllOTWSupplier";
     }
 
+//    -------------------------------------------------------------------------------------------------
+
+    //This is a confirmation page to delete drug
+    @GetMapping(value = "/supplier/deletedrugpage/{id}")
+    public String DeleteDrugButton(@PathVariable("id") Long id, Model model)
+    {
+        Optional<BuyDrugs> delete_drug = buyDrugRepository.findById(id);
+
+        model.addAttribute("id",delete_drug.get().getId());
+        model.addAttribute("name",delete_drug.get().getName());
+        model.addAttribute("descripion",delete_drug.get().getDescription());
+        model.addAttribute("unit",delete_drug.get().getUnit());
+        model.addAttribute("price",delete_drug.get().getPrice());
+
+        //redirecting to EditProfile html page
+        return "DeleteDrugSupplier";
+    }
 
 //    -------------------------------------------------------------------------------------------------
 
     //this deletes the selected drug from buy_drug table in database
     @GetMapping(value = "/supplier/deletedrug/{id}")
-    public String deleteDrug(@PathVariable("id") Long id)
+    public String deleteDrug(@RequestParam("drug_id") Long id)
     {
         drugService.deleteFile(id);
         return  "redirect:/supplier/allbuydrugs?deletesuccess";

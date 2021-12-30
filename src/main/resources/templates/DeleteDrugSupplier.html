@@ -1,3 +1,4 @@
+<!--This is an Admin Page-->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -6,7 +7,7 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
     <meta charset="UTF-8">
-    <title>Edit Profile</title>
+    <title>Delete User Confirmation</title>
 
 </head>
 
@@ -20,59 +21,65 @@
 
 <br>
 
-<div class="container" >
+<div class="container">
     <div align="center">
 
-        <form>
+        <form th:action="@{/supplier/deletedrug/{id}}" action="/supplier/deletedrug/{id}" method="get">
             <div class="form-group">
 
-                <h5>Edit Profile</h5>
+                <h3>Are You Sure ?</h3>
 
-                <label for="user_id">User ID</label>
+                <label for="drug_id">Drug ID</label>
                 <input type="text"
-                       id="user_id"
+                       id="drug_id"
                        class="form-control"
                        th:value="${id}"
-                       name="user_id"
+                       name="drug_id"
                        style="width: 300px"
                        readonly>
 
-                <label for="name">Full Name</label>
+                <label for="name">Name</label>
                 <input type="text"
                        id="name"
                        class="form-control"
                        th:value="${name}"
                        name="name"
-                       style="width: 300px">
-
-                <label for="email">Email</label>
-                <input type="text"
-                       id="email"
-                       class="form-control"
-                       th:value="${email}"
-                       name="email"
-                       style="width: 300px">
-
-                <label for="contact">Contact</label>
-                <input type="text"
-                       id="contact"
-                       class="form-control"
-                       th:value="${contact}"
                        style="width: 300px"
-                       name="contact">
+                       readonly>
 
-                <label for="password">Password</label>
+                <label for="descripion">Descripion</label>
                 <input type="text"
-                       id="password"
+                       id="descripion"
                        class="form-control"
-                       th:value="${password}"
-                       name="password"
+                       th:value="${descripion}"
+                       name="descripion"
+                       style="width: 300px; height: 100px"
+                       readonly>
+
+                <label for="unit">Contact</label>
+                <input type="text"
+                       id="unit"
+                       class="form-control"
+                       th:value="${unit}"
+                       style="width: 300px"
+                       name="unit"
+                       readonly>
+
+                <label for="price">Password</label>
+                <input type="text"
+                       id="price"
+                       class="form-control"
+                       th:value="${price}"
+                       name="price"
                        style="width: 300px"
                        readonly>
 
 
                 <br>
-                <input type="button" href="#" class="btn btn-success" value="UPDATE PROFILE">
+
+                <br>
+                <label for="price"><b>Confirm Delete : </b></label>
+                <input type="submit" class="btn btn-success" value="Delete">
             </div>
         </form>
 
@@ -88,6 +95,5 @@
 
 </div><!--End of class="card text-center"-->
 <!--End of Footer-->
-
 </body>
 </html>

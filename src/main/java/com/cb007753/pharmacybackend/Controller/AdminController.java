@@ -97,7 +97,7 @@ public class AdminController {
 
     //    -------------------------------------------------------------------------------------------------
 
-    //This is a confirmation page to view details of the selected user
+    //This is a confirmation page to delete the selected user
     @GetMapping(value = "/admin/deletepage/{id}")
     public String DeleteButton(@PathVariable("id") Long id, Model model)
     {
