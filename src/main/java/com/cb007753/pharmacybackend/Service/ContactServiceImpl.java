@@ -32,4 +32,9 @@ public class ContactServiceImpl implements ContactService{
         }
         return false;
     }
+
+    @Override
+    public void deleteFile(Long id) {
+        contactRepository.deleteById(id);
+    }
 }

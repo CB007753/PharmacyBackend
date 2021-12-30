@@ -3,7 +3,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>View All Users</title>
+    <title>View All Message</title>
 </head>
 <body>
 
@@ -50,13 +50,17 @@
 <!--End of Header-->
 
 <div align="center">
-    <div th:if="${param.deleteusersuccess}">
-        <div class="alert alert-info">User Deleted Successfully</div>
+    <div th:if="${param.deletemsgsuccess}">
+        <div class="alert alert-success">Message Deleted</div>
     </div>
 </div>
 
 <br>
-<div align="center"> <h5>Pharma Users</h5></div>
+<div align="center">
+    <h5>Message sent by Pharmacists</h5>
+<h7><b>Note: </b>Message marked as read will be deleted</h7>
+</div>
+
 
 
 <div align="center">
@@ -64,21 +68,21 @@
         <thead class="thead-light">
         <tr>
             <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Mobile</th>
+            <th scope="col">Sent By</th>
+            <th scope="col">Message</th>
+            <th scope="col">Sent Date And Time</th>
             <th scope="col">Action</th>
 
         </tr>
         </thead>
         <tbody>
-        <tr th:each="User: ${adminUserList}">
-            <td th:text="${User.getId()}"></td>
-            <td th:text="${User.getFullname()}"></td>
-            <td th:text="${User.getEmail()}"></td>
-            <td th:text="${User.getMobile()}"></td>
+        <tr th:each="Contact: ${adminMessageList}">
+            <td th:text="${Contact.getId()}"></td>
+            <td th:text="${Contact.getEmail()}"></td>
+            <td th:text="${Contact.getMessage()}"></td>
+            <td th:text="${Contact.getDate()}"></td>
             <td>
-                <a th:href="@{/admin/deletepage/{id}(id=${User.getId()})}" class="btn btn-success" style="width: 100px" >Remove</a>
+                <a th:href="@{/admin/deletemessage/{id}(id=${Contact.getId()})}" class="btn btn-success" style="width: 120px" >Mark As Read</a>
             </td>
 
         </tr>

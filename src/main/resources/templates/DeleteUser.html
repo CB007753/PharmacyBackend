@@ -1,0 +1,84 @@
+<!--This is an Admin Page-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Delete User Confirmation</title>
+
+</head>
+<body>
+
+<br>
+
+<div class="container">
+    <div align="center">
+
+        <form th:action="@{/admin/deleteuser/{id}}" action="/admin/deleteuser/{id}" method="get">
+            <div class="form-group">
+
+                <h3>Are You Sure ?</h3>
+
+                <label for="user_id">User ID</label>
+                <input type="text"
+                       id="user_id"
+                       class="form-control"
+                       th:value="${id}"
+                       name="user_id"
+                       style="width: 300px"
+                       readonly>
+
+                <label for="name">Full Name</label>
+                <input type="text"
+                       id="name"
+                       class="form-control"
+                       th:value="${name}"
+                       name="name"
+                       style="width: 300px"
+                       readonly>
+
+                <label for="email">Email</label>
+                <input type="text"
+                       id="email"
+                       class="form-control"
+                       th:value="${email}"
+                       name="email"
+                       style="width: 300px"
+                       readonly>
+
+                <label for="contact">Contact</label>
+                <input type="text"
+                       id="contact"
+                       class="form-control"
+                       th:value="${contact}"
+                       style="width: 300px"
+                       name="contact"
+                       readonly>
+
+                <label for="password">Password</label>
+                <input type="text"
+                       id="password"
+                       class="form-control"
+                       th:value="${password}"
+                       name="password"
+                       style="width: 300px"
+                       readonly>
+
+
+                <br>
+
+                <br>
+                <label for="password"><b>Confirm Delete : </b></label>
+                <input type="submit" class="btn btn-success" value="Delete">
+            </div>
+        </form>
+
+    </div><!-- End of align center div -->
+
+</div><!-- End of div class container -->
+
+</body>
+</html>
