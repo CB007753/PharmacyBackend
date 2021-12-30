@@ -46,7 +46,7 @@ public class SupplierController {
         UserDetails userDetails=(UserDetails)authentication.getPrincipal();
         model.addAttribute("useremail",userDetails);
 
-        //redirecting to ViewPharmacyInventoryUser html page
+        //redirecting to ViewAllBuyDrugsSupplier html page
         return "ViewAllBuyDrugsSupplier";
     }
 
@@ -65,7 +65,7 @@ public class SupplierController {
         UserDetails userDetails=(UserDetails)authentication.getPrincipal();
         model.addAttribute("useremail",userDetails);
 
-        //redirecting to ViewPharmacyInventoryUser html page
+        //redirecting to ViewAllOTWSupplier html page
         return "ViewAllOTWSupplier";
     }
 
@@ -83,7 +83,7 @@ public class SupplierController {
         model.addAttribute("unit",delete_drug.get().getUnit());
         model.addAttribute("price",delete_drug.get().getPrice());
 
-        //redirecting to EditProfile html page
+        //redirecting to DeleteDrugSupplier html page
         return "DeleteDrugSupplier";
     }
 
@@ -111,7 +111,7 @@ public class SupplierController {
         UserDetails userDetails=(UserDetails)authentication.getPrincipal();
         model.addAttribute("useremail",userDetails);
 
-        //redirecting to ViewPharmacyInventoryUser html page
+        //redirecting to ViewAllDeliveredSupplier html page
         return "ViewAllDeliveredSupplier";
     }
 
@@ -166,4 +166,57 @@ public class SupplierController {
 
         return "redirect:/supplier/adddrugpage?unsuccess";
     }
+
+    //    ------------------------------------------------------------------------------------------------
+
+    //Gets the drug details and adding it to a model to access it in edit drug page
+    @GetMapping(value = "/supplier/editdrug/{id}")
+    public String UpdateDrugButton(@PathVariable("id") Long id, Model model)
+    {
+        Optional<BuyDrugs> view_buydrugs = buyDrugRepository.findById(id);
+
+        model.addAttribute("id",view_buydrugs.get().getId());
+        model.addAttribute("name",view_buydrugs.get().getName());
+        model.addAttribute("description",view_buydrugs.get().getDescription());
+        model.addAttribute("price",view_buydrugs.get().getPrice());
+        model.addAttribute("unit",view_buydrugs.get().getUnit());
+
+        //redirecting to EditDrugSupplier html page
+        return "EditDrugSupplier";
+    }
+
+    //    -------------------------------------------------------------------------------------------------
+
+    //Updates the drug details-supplier
+    @PostMapping(value = "/supplier/updatedrug")
+    public String UpdateDrugDetails(@Valid BuyDrugs buyDrugs,
+                                    @RequestParam("drug_id")Long id, @RequestParam("description")String description,
+                                    @RequestParam("name") String drugname,
+                                    @RequestParam("price") int price,
+                                    @RequestParam("unit")String unit, Model model) {
+        try {
+            buyDrugs.setId(id);
+            buyDrugs.setName(drugname);
+            buyDrugs.setDescription(description);
+            buyDrugs.setPrice(price);
+            buyDrugs.setUnit(unit);
+
+
+            //updating the drug details with entered details
+            drugService.saveDrug(buyDrugs);
+
+            Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+            UserDetails userDetails=(UserDetails)authentication.getPrincipal();
+            model.addAttribute("useremail",userDetails);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+
+        //redirecting to OnTheWayOrdersUser html page
+        return "redirect:/supplier/allbuydrugs?editsuccess";
+    }
+
 }
