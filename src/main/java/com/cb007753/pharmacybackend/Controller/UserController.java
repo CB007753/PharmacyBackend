@@ -199,6 +199,41 @@ public class UserController {
         return "EditProfile";
     }
 
+    //    -------------------------------------------------------------------------------------------------
+
+//This function was never used
+    //Updates the user details with entered values
+    @PostMapping(value = "/user/updateuser")
+    public String UpdateUser(@Valid User user,
+                              @RequestParam("user_id")Long id, @RequestParam("email")String email,
+                              @RequestParam("name") String name,
+                              @RequestParam("contact") String contact, @RequestParam("password") String password
+                                , Model model) {
+        try {
+            user.setId(id);
+            user.setFullname(name);
+            user.setEmail(email);
+            user.setMobile(contact);
+            user.setPassword(password);
+
+            //updating the user details
+            userService.saveUser(user);
+
+            Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+            UserDetails userDetails=(UserDetails)authentication.getPrincipal();
+            model.addAttribute("useremail",userDetails);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+
+        //redirecting to OnTheWayOrdersUser html page
+        return "redirect:/user/viewprofile/{email}?updatesuccess";
+    }
+//    This function was never used
+
     //    ------------------------------------------------------------------------------------------------
 
     //Display Contact Admin Page
