@@ -195,6 +195,10 @@ public class UserController {
         model.addAttribute("contact",view_profile.get().getMobile());
         model.addAttribute("password",view_profile.get().getPassword());
 
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails=(UserDetails)authentication.getPrincipal();
+        model.addAttribute("useremail",userDetails);
+
         //redirecting to EditProfile html page
         return "EditProfile";
     }

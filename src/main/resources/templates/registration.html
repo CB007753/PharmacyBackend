@@ -28,12 +28,16 @@
             <!--Message displayed when register is successful -->
             <div th:if="${param.success}">
 
-                <div class="alert alert-info">You are successfully registered</div>
+                <div class="alert alert-success">You are successfully registered</div>
 
             </div>
             <br>
             <div th:if="${param.unsuccess}">
                 <div class="alert alert-danger">The email you entered is already taken, Try a new one !</div>
+            </div>
+            <br>
+            <div th:if="${param.error}">
+                <div style="text-align: center" class="alert alert-danger">Try Again !</div>
             </div>
 
 
@@ -120,7 +124,7 @@
         const  contact_= document.getElementById("mobile").value;
         if(contact_.length !== 10) {
 
-            alert("Invalid Contact Number !")
+            alert("Invalid Contact Number ! Number Length should be 10 !")
 
             return false;
         }
