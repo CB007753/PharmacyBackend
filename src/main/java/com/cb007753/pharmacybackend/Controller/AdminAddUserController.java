@@ -20,10 +20,7 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/admin/adduser")
 public class AdminAddUserController {
-
     //This page is an add user page which will be done by admin(add pharmacist)
-
-
     private final UserService userService;
 
     @Autowired

@@ -1,6 +1,6 @@
 package com.cb007753.pharmacybackend.Model;
 
-//this DTO file is used for user registration
+//this Data Transfer Object (DTO) Design Pattern file is used for user registration
 public class RegistrationDTO {
 
     private String fullname;
@@ -13,8 +13,6 @@ public class RegistrationDTO {
 
 
     //Constructors
-
-
     public RegistrationDTO(String fullname, String email, String password, String mobile) {
         this.fullname = fullname;
         this.email = email;

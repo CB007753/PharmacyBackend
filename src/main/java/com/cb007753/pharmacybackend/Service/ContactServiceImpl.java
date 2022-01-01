@@ -30,11 +30,8 @@ public class ContactServiceImpl implements ContactService{
             e.printStackTrace();
             return false;
         }
-        return false;
-    }
-
+        return false;}
     @Override
     public void deleteFile(Long id) {
         contactRepository.deleteById(id);
-    }
-}
+    }}

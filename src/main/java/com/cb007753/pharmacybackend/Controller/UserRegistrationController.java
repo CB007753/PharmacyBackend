@@ -60,7 +60,6 @@ public class UserRegistrationController {
 
     }
 
-
     public boolean CheckIfUserExists(String email) {
 
         //returns true if there is user in the database with the same email
