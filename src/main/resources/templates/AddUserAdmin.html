@@ -79,16 +79,18 @@
 
                 <h1>Add Pharmacist</h1>
 
-                <form th:action="@{/admin/adduser}" method="post" th:object="${user}" onsubmit="contact_validation()">
+                <form th:action="@{/admin/adduser}" method="post" th:object="${user}" onsubmit="validation()">
 
                     <div class="form-group" style="width: 500px">
 
                         <label class="control-label" for="fullname"> Full Name </label>
                         <input id="fullname"
+                               type="text"
                                class="form-control"
                                th:field="*{fullname}"
                                style="width: 300px"
                                minlength="3"
+                               maxlength="45"
                                required />
 
                         <br>
@@ -98,6 +100,7 @@
                                class="form-control"
                                th:field="*{email}"
                                style="width: 300px"
+                               maxlength="45"
                                required/>
 
                         <br>
@@ -108,15 +111,17 @@
                                 th:field="*{password}"
                                 style="width: 300px"
                                 minlength="8"
+                                maxlength="10"
                                 required/>
 
                         <br>
                         <label class="control-label" for="mobile"> Mobile Number </label>
                         <input id="mobile"
                                class="form-control"
-                               type="number"
+                               type="text"
                                th:field="*{mobile}"
                                style="width: 300px"
+                               minlength="10"
                                required />
 
 
@@ -158,18 +163,21 @@
 
 <!--contact validation in JS-->
 <script>
-    function contact_validation()
+    function validation()
     {
-        const  contact_= document.getElementById("mobile").value;
-        if(contact_.length !== 10) {
+        const query = document.getElementById('mobile').value;
 
-            alert("Invalid Contact Number ! Number Length should be 10 !")
+        const isNumeric = query.match(/^\d+$/);
+
+        if(isNumeric && query.length === 10)
+        {
+            return true
+        }
+        else{
+
+            alert("Invalid Contact Number !Contact Number must contain numbers, Number Length should be 10 !")
 
             return false;
-        }
-        else {
-
-            return true;
         }
     }
 </script>

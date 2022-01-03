@@ -43,7 +43,7 @@ public class UserRegistrationController {
     @PostMapping
     public String registerUserAccount(@ModelAttribute("user") @Valid RegistrationDTO registrationDto, BindingResult bindingResult)
     {
-        //this try catch mostly catches the error caused by mobile number length
+
         try{
             if (CheckIfUserExists(registrationDto.getEmail()))
             {
