@@ -14,8 +14,8 @@ public interface UserService extends UserDetailsService {
     //to save user to database- register pharmacist
     User save(RegistrationDTO registrationDTO);
 
-    //to save user to database- register supplier
-    User saveSupplier(RegistrationDTO registrationDTO);
+//    //to save user to database- register supplier
+//    User saveSupplier(RegistrationDTO registrationDTO);
 
     //to edit profile details
     User saveUser(User user);

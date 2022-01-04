@@ -79,7 +79,7 @@ public class AdminController {
 
 //    -------------------------------------------------------------------------------------------------
 
-    //displays all the delivered orders
+    //displays all the users
     @RequestMapping(value = "/admin/allusers")
     public String viewAllUsers(Model model)
     {
