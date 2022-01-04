@@ -67,6 +67,24 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(user.getEmail());
     }
 
+    //Admin- add supplier function
+    @Override
+    public User saveSupplier(RegistrationDTO registrationDTO) {
+
+        User user =new User(
+                registrationDTO.getFullname(),
+                registrationDTO.getEmail(),
+                bCryptPasswordEncoder.encode(registrationDTO.getPassword()),
+                registrationDTO.getMobile(),
+                Arrays.asList(new Role("ROLE_SUPPLIER"))
+        );
+
+        userRepository.save(user);
+
+        return userRepository.findByEmail(user.getEmail());
+
+    }
+
     //this is used for edit profile function
     @Override
     public User saveUser(User user) {
