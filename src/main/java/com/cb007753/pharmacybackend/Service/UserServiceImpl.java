@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -101,6 +102,13 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.findByEmail(user.getEmail());
 
+    }
+
+    @Transactional
+    @Override
+    public void EditProfile(String fullname, String mobile, String email, Long id) {
+
+        userRepository.updateUser(fullname,mobile,email,id);
     }
 
     @Override

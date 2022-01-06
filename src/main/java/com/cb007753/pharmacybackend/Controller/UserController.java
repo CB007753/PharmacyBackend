@@ -205,23 +205,18 @@ public class UserController {
 
     //    -------------------------------------------------------------------------------------------------
 
-//This function was never used
+
     //Updates the user details with entered values
     @PostMapping(value = "/user/updateuser")
-    public String UpdateUser(@Valid User user,
-                              @RequestParam("user_id")Long id, @RequestParam("email")String email,
+    public String UpdateUser(@RequestParam("user_id")Long id, @RequestParam("email")String email,
                               @RequestParam("name") String name,
-                              @RequestParam("contact") String contact, @RequestParam("password") String password
-                                , Model model) {
+                              @RequestParam("contact") String contact, Model model) {
+
+
         try {
-            user.setId(id);
-            user.setFullname(name);
-            user.setEmail(email);
-            user.setMobile(contact);
-            user.setPassword(password);
 
             //updating the user details
-            userService.saveUser(user);
+            userService.EditProfile(name,contact,email,id);
 
             Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
             UserDetails userDetails=(UserDetails)authentication.getPrincipal();
@@ -230,13 +225,14 @@ public class UserController {
         } catch (Exception e) {
 
             e.printStackTrace();
+            return "ViewProfile";
 
         }
 
         //redirecting to OnTheWayOrdersUser html page
-        return "redirect:/user/viewprofile/{email}?updatesuccess";
+        return "ViewProfile";
     }
-//    This function was never used
+
 
     //    ------------------------------------------------------------------------------------------------
 

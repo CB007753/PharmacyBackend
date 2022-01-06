@@ -20,6 +20,9 @@ public interface UserService extends UserDetailsService {
     //to edit profile details
     User saveUser(User user);
 
+    void EditProfile(String fullname,String mobile,String email, Long id);
+
+
     //Admin- delete user by id
     void deleteFile(Long id);
 

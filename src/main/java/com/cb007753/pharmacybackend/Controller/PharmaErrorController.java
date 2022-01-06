@@ -32,6 +32,9 @@ public class PharmaErrorController implements ErrorController {
                 // handle HTTP 500 Internal Server error
                 errorPage = "error/500";
 
+            } else if(statusCode == HttpStatus.METHOD_NOT_ALLOWED.value()){
+                // handle HTTP 405 Method Not Allowed error
+                errorPage = "error/405";
             }
         }
 

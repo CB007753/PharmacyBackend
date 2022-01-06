@@ -23,19 +23,19 @@
 <div class="container" >
     <div align="center">
 
-        <form  >
+        <form  th:action="@{/user/updateuser}" action="/user/updateuser" method="post">
             <div class="form-group">
 
-                <h5>Edit Profile</h5>
+                <h4>Edit Profile</h4>
 
-                <label for="user_id">User ID</label>
+
                 <input type="text"
                        id="user_id"
                        class="form-control"
                        th:value="${id}"
                        name="user_id"
                        style="width: 300px"
-                       readonly>
+                       hidden>
 
                 <label for="name">Full Name</label>
                 <input type="text"
@@ -43,7 +43,8 @@
                        class="form-control"
                        th:value="${name}"
                        name="name"
-                       style="width: 300px">
+                       style="width: 300px"
+                minlength="3">
 
                 <label for="email">Email</label>
                 <input type="text"
@@ -59,9 +60,12 @@
                        class="form-control"
                        th:value="${contact}"
                        style="width: 300px"
-                       name="contact">
+                       name="contact"
+                       minlength="10"
+                       maxlength="10">
 
-                <label for="password">Password(Encrypted)</label>
+
+                <label for="password">Password(Read Only)</label>
                 <input type="text"
                        id="password"
                        class="form-control"
@@ -72,7 +76,7 @@
 
 
                 <br>
-                <input type="button" class="btn btn-success" value="UPDATE PROFILE">
+                <input type="submit" class="btn btn-success" value="UPDATE PROFILE">
             </div>
         </form>
 
@@ -91,3 +95,26 @@
 
 </body>
 </html>
+
+
+<!--contact validation in JS-->
+<script>
+    function validation()
+    {
+
+        const query = document.getElementById('contact').value;
+
+        const isNumeric = query.match(/^\d+$/);
+
+        if(isNumeric && query.length === 10)
+        {
+            return true
+        }
+        else{
+
+            alert("Invalid Contact Number !Contact Number must contain numbers, Number Length should be 10 !")
+
+            return false;
+        }
+    }
+</script>
