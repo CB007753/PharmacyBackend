@@ -266,6 +266,8 @@ public class UserController {
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+            //setting email
             contact.setEmail(userDetails.getUsername());
 
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
