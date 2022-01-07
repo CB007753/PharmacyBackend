@@ -1,99 +1,111 @@
 <!--This is a Supplier Page-->
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Supplier Drugs</title>
 </head>
 <body>
 
-<!--Start of header-->
-<nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #A8E4A0;">
-    <a class="navbar-brand" th:href="@{/supplier/allbuydrugs}" >PHARMA - Supplier </a>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent3" aria-controls="navbarSupportedContent3" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<!--Start of Supplier Authorization-->
+<div sec:authorize="hasAnyAuthority('ROLE_SUPPLIER')">
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent3">
-        <ul class="navbar-nav mr-auto">
 
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/supplier/allbuydrugs}" >Home <span class="sr-only">(current)</span></a>
+
+
+    <!--Start of header-->
+    <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #A8E4A0;">
+        <a class="navbar-brand" th:href="@{/supplier/allbuydrugs}" >PHARMA - Supplier </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent3" aria-controls="navbarSupportedContent3" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent3">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/supplier/allbuydrugs}" >Home <span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/supplier/adddrugpage}">Add Drug</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/supplier/allotworders/{status}(status='On The Way')}" >View On The Way Orders</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/supplier/alldeliveredorders/{status}(status='Delivered')}" >View Delivered Orders</a>
+                </li>
+
+
+            </ul>
+
+
+            <li class="nav-link">
+                <a class="nav-link" th:href="@{/logout}">Log Out</a>
             </li>
+        </div> <!--End of class="collapse navbar-collapse"-->
 
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/supplier/adddrugpage}">Add Drug</a>
-            </li>
+    </nav>
+    <!--End of Header-->
 
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/supplier/allotworders/{status}(status='On The Way')}" >View On The Way Orders</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/supplier/alldeliveredorders/{status}(status='Delivered')}" >View Delivered Orders</a>
-            </li>
-
-
-        </ul>
-
-
-        <li class="nav-link">
-            <a class="nav-link" th:href="@{/logout}">Log Out</a>
-        </li>
-    </div> <!--End of class="collapse navbar-collapse"-->
-
-</nav>
-<!--End of Header-->
-
-<div align="center">
-    <div th:if="${param.deletesuccess}">
-        <div class="alert alert-success">Item Deleted Successfully</div>
+    <div align="center">
+        <div th:if="${param.deletesuccess}">
+            <div class="alert alert-success">Item Deleted Successfully</div>
+        </div>
+        <div th:if="${param.editsuccess}">
+            <div class="alert alert-success">Drug Details Updated</div>
+        </div>
     </div>
-    <div th:if="${param.editsuccess}">
-        <div class="alert alert-success">Drug Details Updated</div>
-    </div>
+
+
+    <br>
+    <div align="center"> <h5>Supplier Market</h5></div>
+
+
+    <div align="center">
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Unit</th>
+                <th scope="col">Action</th>
+                <th scope="col">Action</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="BuyDrugs: ${supplierBuyDrugsList}">
+                <td th:text="${BuyDrugs.getId()}"></td>
+                <td th:text="${BuyDrugs.getName()}"></td>
+                <td th:text="${BuyDrugs.getDescription()}"></td>
+                <td th:text="${BuyDrugs.getPrice()}"></td>
+                <td th:text="${BuyDrugs.getUnit()}"></td>
+                <td>
+                    <a th:href="@{/supplier/editdrug/{id}(id=${BuyDrugs.getId()})}" class="btn btn-success" style="width: 100px" >Edit</a>
+                </td>
+                <td>
+                    <a th:href="@{/supplier/deletedrugpage/{id}(id=${BuyDrugs.getId()})}" class="btn btn-success" style="width: 100px" >Remove</a>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div><!--END OF div align center-->
+
+    <br><br>
+
 </div>
+<!--End of Supplier Authorization-->
 
 
-<br>
-<div align="center"> <h5>Supplier Market</h5></div>
-
-
-<div align="center">
-    <table class="table">
-        <thead class="thead-light">
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Price</th>
-            <th scope="col">Unit</th>
-            <th scope="col">Action</th>
-            <th scope="col">Action</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="BuyDrugs: ${supplierBuyDrugsList}">
-            <td th:text="${BuyDrugs.getId()}"></td>
-            <td th:text="${BuyDrugs.getName()}"></td>
-            <td th:text="${BuyDrugs.getDescription()}"></td>
-            <td th:text="${BuyDrugs.getPrice()}"></td>
-            <td th:text="${BuyDrugs.getUnit()}"></td>
-            <td>
-                <a th:href="@{/supplier/editdrug/{id}(id=${BuyDrugs.getId()})}" class="btn btn-success" style="width: 100px" >Edit</a>
-            </td>
-            <td>
-                <a th:href="@{/supplier/deletedrugpage/{id}(id=${BuyDrugs.getId()})}" class="btn btn-success" style="width: 100px" >Remove</a>
-            </td>
-
-        </tr>
-        </tbody>
-    </table>
-</div><!--END OF div align center-->
-
-<br><br>
 <!--Footer-->
 <div class="card text-center">
     <div class="card-footer text-muted fixed-bottom">

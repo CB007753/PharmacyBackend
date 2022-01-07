@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -10,74 +10,81 @@
 
 </head>
 
-<!--Nav Bar (header)-->
-<nav class="navbar navbar-light" style="background-color: #A8E4A0;">
-    <a class="navbar-brand" href="#" > PHARMA - Supplier</a>
-</nav>
-<!--header end-->
-
 <body>
 
-<br>
-
-<div class="container" >
-    <div align="center">
-
-        <form th:action="@{/supplier/updatedrug}" action="/supplier/updatedrug" method="post">
-            <div class="form-group">
-
-                <h5>Edit Drug Details</h5>
-
-                <label for="drug_id">Drug ID</label>
-                <input type="text"
-                       id="drug_id"
-                       class="form-control"
-                       th:value="${id}"
-                       name="drug_id"
-                       style="width: 300px"
-                       readonly>
-
-                <label for="name">Drug Name</label>
-                <input type="text"
-                       id="name"
-                       class="form-control"
-                       th:value="${name}"
-                       name="name"
-                       style="width: 300px">
-
-                <label for="description">Description</label>
-                <input type="text"
-                       id="description"
-                       class="form-control"
-                       th:value="${description}"
-                       name="description"
-                       style="width: 500px;height: 140px;">
-
-                <label for="price">Price</label>
-                <input type="number"
-                       id="price"
-                       class="form-control"
-                       th:value="${price}"
-                       style="width: 300px"
-                       name="price">
-
-                <label for="unit">Unit</label>
-                <input type="text"
-                       id="unit"
-                       class="form-control"
-                       th:value="${unit}"
-                       name="unit"
-                       style="width: 300px">
+<!--Start of Supplier Authorization-->
+<div sec:authorize="hasAnyAuthority('ROLE_SUPPLIER')">
 
 
-                <br>
-                <input type="submit" class="btn btn-success" value="UPDATE DRUG DETAILS">
-            </div>
-        </form>
+    <!--Nav Bar (header)-->
+    <nav class="navbar navbar-light" style="background-color: #A8E4A0;">
+        <a class="navbar-brand" href="#" > PHARMA - Supplier</a>
+    </nav>
+    <!--header end-->
+    <br>
 
-    </div><!-- End of align center div -->
+    <div class="container" >
+        <div align="center">
 
-</div><!-- End of div class container -->
+            <form th:action="@{/supplier/updatedrug}" action="/supplier/updatedrug" method="post">
+                <div class="form-group">
+
+                    <h5>Edit Drug Details</h5>
+
+                    <label for="drug_id">Drug ID</label>
+                    <input type="text"
+                           id="drug_id"
+                           class="form-control"
+                           th:value="${id}"
+                           name="drug_id"
+                           style="width: 300px"
+                           readonly>
+
+                    <label for="name">Drug Name</label>
+                    <input type="text"
+                           id="name"
+                           class="form-control"
+                           th:value="${name}"
+                           name="name"
+                           style="width: 300px">
+
+                    <label for="description">Description</label>
+                    <input type="text"
+                           id="description"
+                           class="form-control"
+                           th:value="${description}"
+                           name="description"
+                           style="width: 500px;height: 140px;">
+
+                    <label for="price">Price</label>
+                    <input type="number"
+                           id="price"
+                           class="form-control"
+                           th:value="${price}"
+                           style="width: 300px"
+                           name="price">
+
+                    <label for="unit">Unit</label>
+                    <input type="text"
+                           id="unit"
+                           class="form-control"
+                           th:value="${unit}"
+                           name="unit"
+                           style="width: 300px">
+
+
+                    <br>
+                    <input type="submit" class="btn btn-success" value="UPDATE DRUG DETAILS">
+                </div>
+            </form>
+
+        </div><!-- End of align center div -->
+
+    </div><!-- End of div class container -->
+
+
+</div>
+<!--End of Supplier Authorization-->
 
 <!--Footer-->
 <div class="card text-center">

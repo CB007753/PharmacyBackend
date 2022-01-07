@@ -1,87 +1,98 @@
 <!--This is a Supplier Page-->
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>On The Way Orders</title>
 </head>
 <body>
 
-<!--Start of header-->
-<nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #A8E4A0;">
-    <a class="navbar-brand" th:href="@{/supplier/allbuydrugs}" >PHARMA - Supplier </a>
+<!--Start of Supplier Authorization-->
+<div sec:authorize="hasAnyAuthority('ROLE_SUPPLIER')">
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent3" aria-controls="navbarSupportedContent3" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent3">
-        <ul class="navbar-nav mr-auto">
 
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/supplier/allbuydrugs}" >Home <span class="sr-only">(current)</span></a>
+
+    <!--Start of header-->
+    <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #A8E4A0;">
+        <a class="navbar-brand" th:href="@{/supplier/allbuydrugs}" >PHARMA - Supplier </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent3" aria-controls="navbarSupportedContent3" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent3">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/supplier/allbuydrugs}" >Home <span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/supplier/adddrugpage}">Add Drug</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/supplier/allotworders/{status}(status='On The Way')}" >View On The Way Orders</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/supplier/alldeliveredorders/{status}(status='Delivered')}" >View Delivered Orders</a>
+                </li>
+
+
+            </ul>
+
+
+            <li class="nav-link">
+                <a class="nav-link" th:href="@{/logout}">Log Out</a>
             </li>
+        </div> <!--End of class="collapse navbar-collapse"-->
 
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/supplier/adddrugpage}">Add Drug</a>
-            </li>
+    </nav>
+    <!--End of Header-->
 
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/supplier/allotworders/{status}(status='On The Way')}" >View On The Way Orders</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/supplier/alldeliveredorders/{status}(status='Delivered')}" >View Delivered Orders</a>
-            </li>
+    <br>
+    <div align="center"> <h5>Orders to be delivered to Pharma</h5></div>
 
 
-        </ul>
+    <div align="center">
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Pharmacist</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Unit</th>
+                <th scope="col">Price</th>
+                <th scope="col">Ordered Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Total</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="Order: ${supplierOTWList}">
+                <td th:text="${Order.getDrugname()}"></td>
+                <td th:text="${Order.getEmail()}"></td>
+                <td th:text="${Order.getQnty()}"></td>
+                <td th:text="${Order.getUnit()}"></td>
+                <td th:text="${Order.getPrice()}"></td>
+                <td th:text="${Order.getDate()}"></td>
+                <td th:text="${Order.getStatus()}"></td>
+                <td th:text="${Order.getTotal()}"></td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div><!--END OF div align center-->
+
+    <br><br>
+
+</div>
+<!--End of Supplier Authorization-->
 
 
-        <li class="nav-link">
-            <a class="nav-link" th:href="@{/logout}">Log Out</a>
-        </li>
-    </div> <!--End of class="collapse navbar-collapse"-->
-
-</nav>
-<!--End of Header-->
-
-<br>
-<div align="center"> <h5>Orders to be delivered to Pharma</h5></div>
-
-
-<div align="center">
-    <table class="table">
-        <thead class="thead-light">
-        <tr>
-            <th scope="col">Item</th>
-            <th scope="col">Pharmacist</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Unit</th>
-            <th scope="col">Price</th>
-            <th scope="col">Ordered Date</th>
-            <th scope="col">Status</th>
-            <th scope="col">Total</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="Order: ${supplierOTWList}">
-            <td th:text="${Order.getDrugname()}"></td>
-            <td th:text="${Order.getEmail()}"></td>
-            <td th:text="${Order.getQnty()}"></td>
-            <td th:text="${Order.getUnit()}"></td>
-            <td th:text="${Order.getPrice()}"></td>
-            <td th:text="${Order.getDate()}"></td>
-            <td th:text="${Order.getStatus()}"></td>
-            <td th:text="${Order.getTotal()}"></td>
-
-        </tr>
-        </tbody>
-    </table>
-</div><!--END OF div align center-->
-
-<br><br>
 <!--Footer-->
 <div class="card text-center">
     <div class="card-footer text-muted fixed-bottom">

@@ -1,107 +1,116 @@
 <!--This is a supplier page-->
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <Title>Add Drugs</Title>
 </head>
 <body>
 
-<!--Start of header-->
-<nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #A8E4A0;">
-    <a class="navbar-brand" th:href="@{/supplier/allbuydrugs}" >PHARMA - Supplier </a>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent3" aria-controls="navbarSupportedContent3" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<!--Start of Supplier Authorization-->
+<div sec:authorize="hasAnyAuthority('ROLE_SUPPLIER')">
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent3">
-        <ul class="navbar-nav mr-auto">
 
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/supplier/allbuydrugs}" >Home <span class="sr-only">(current)</span></a>
+    <!--Start of header-->
+    <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #A8E4A0;">
+        <a class="navbar-brand" th:href="@{/supplier/allbuydrugs}" >PHARMA - Supplier </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent3" aria-controls="navbarSupportedContent3" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent3">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/supplier/allbuydrugs}" >Home <span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/supplier/adddrugpage}">Add Drug</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/supplier/allotworders/{status}(status='On The Way')}" >View On The Way Orders</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/supplier/alldeliveredorders/{status}(status='Delivered')}" >View Delivered Orders</a>
+                </li>
+
+
+            </ul>
+
+
+            <li class="nav-link">
+                <a class="nav-link" th:href="@{/logout}">Log Out</a>
             </li>
+        </div> <!--End of class="collapse navbar-collapse"-->
 
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/supplier/adddrugpage}">Add Drug</a>
-            </li>
+    </nav>
+    <!--End of Header-->
 
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/supplier/allotworders/{status}(status='On The Way')}" >View On The Way Orders</a>
-            </li>
+    <div align="center">
 
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/supplier/alldeliveredorders/{status}(status='Delivered')}" >View Delivered Orders</a>
-            </li>
-
-
-        </ul>
-
-
-        <li class="nav-link">
-            <a class="nav-link" th:href="@{/logout}">Log Out</a>
-        </li>
-    </div> <!--End of class="collapse navbar-collapse"-->
-
-</nav>
-<!--End of Header-->
-
-<div align="center">
-
-    <!-- success message -->
-    <div th:if="${param.success}">
-        <div class="alert alert-success">Drug Added Successfully !</div>
-    </div>
-    <!-- unsuccess message -->
-    <div th:if="${param.unsuccess}">
-        <div class="alert alert-danger">Something Went Wrong. Maybe the drug you're trying to add may already exist. Try editing the details of it instead of adding new one with same name</div>
-    </div>
-</div>
-
-<br>
-<div class="container" style="padding-left: 300px;">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-
-            <div align="center">
-            <div class="card p-3 py-4" >
-
-                <form th:action="@{/supplier/adddrugtomarket}" method="post" enctype="multipart/form-data">
-
-                    <div class="form-group">
-                        <label for="name">Drug Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Drug Name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="description">Description</label>
-                        <input type="text" class="form-control" id="description" name="description" placeholder="Description" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="price">Price</label>
-                        <input type="number" class="form-control" id="price" name="price" placeholder="Price"required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="price">Unit</label>
-                        <input type="text" class="form-control" id="unit" name="unit" placeholder="Unit"required>
-                    </div>
-
-                    <div align="center">
-                        <button type="submit" class="btn btn-success">Add This To Market</button>
-                    </div>
-
-                </form>
-
-            </div><!--End of card p-3 py-4-->
+        <!-- success message -->
+        <div th:if="${param.success}">
+            <div class="alert alert-success">Drug Added Successfully !</div>
         </div>
+        <!-- unsuccess message -->
+        <div th:if="${param.unsuccess}">
+            <div class="alert alert-danger">Something Went Wrong. Maybe the drug you're trying to add may already exist. Try editing the details of it instead of adding new one with same name</div>
+        </div>
+    </div>
 
-        </div><!--End of col-md-6-->
-    </div><!--End of class row-->
-</div><!--End of container-->
-<br><br>
+    <br>
+    <div class="container" style="padding-left: 300px;">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
 
+                <div align="center">
+                    <div class="card p-3 py-4" >
+
+                        <form th:action="@{/supplier/adddrugtomarket}" method="post" enctype="multipart/form-data">
+
+                            <div class="form-group">
+                                <label for="name">Drug Name</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Drug Name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <input type="text" class="form-control" id="description" name="description" placeholder="Description" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="price">Price</label>
+                                <input type="number" class="form-control" id="price" name="price" placeholder="Price"required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="price">Unit</label>
+                                <input type="text" class="form-control" id="unit" name="unit" placeholder="Unit"required>
+                            </div>
+
+                            <div align="center">
+                                <button type="submit" class="btn btn-success">Add This To Market</button>
+                            </div>
+
+                        </form>
+
+                    </div><!--End of card p-3 py-4-->
+                </div>
+
+            </div><!--End of col-md-6-->
+        </div><!--End of class row-->
+    </div><!--End of container-->
+    <br><br>
+
+
+
+</div>
+<!--End of Supplier Authorization-->
 
 <!--Footer-->
 <div class="card text-center">
