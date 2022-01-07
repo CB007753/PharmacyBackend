@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -9,80 +9,92 @@
     <title>Edit Profile</title>
 
 </head>
-
-<!--Nav Bar (header)-->
-<nav class="navbar navbar-light" style="background-color: #A8E4A0;">
-    <a class="navbar-brand" href="#" > PHARMA - Pharmacist </a>
-</nav>
-<!--header end-->
-
 <body>
 
-<br>
 
-<div class="container" >
-    <div align="center">
-
-        <form  th:action="@{/user/updateuser}" action="/user/updateuser" method="post">
-            <div class="form-group">
-
-                <h4>Edit Profile</h4>
+<!--Start of Pharmacist Authorization-->
+<div sec:authorize="hasAnyAuthority('ROLE_USER')">
 
 
-                <input type="text"
-                       id="user_id"
-                       class="form-control"
-                       th:value="${id}"
-                       name="user_id"
-                       style="width: 300px"
-                       hidden>
-
-                <label for="name">Full Name</label>
-                <input type="text"
-                       id="name"
-                       class="form-control"
-                       th:value="${name}"
-                       name="name"
-                       style="width: 300px"
-                minlength="3">
-
-                <label for="email">Email</label>
-                <input type="text"
-                       id="email"
-                       class="form-control"
-                       th:value="${email}"
-                       name="email"
-                       style="width: 300px">
-
-                <label for="contact">Contact</label>
-                <input type="text"
-                       id="contact"
-                       class="form-control"
-                       th:value="${contact}"
-                       style="width: 300px"
-                       name="contact"
-                       minlength="10"
-                       maxlength="10">
+    <!--Nav Bar (header)-->
+    <nav class="navbar navbar-light" style="background-color: #A8E4A0;">
+        <a class="navbar-brand" href="#" > PHARMA - Pharmacist </a>
+    </nav>
+    <!--header end-->
 
 
-                <label for="password">Password(Read Only)</label>
-                <input type="text"
-                       id="password"
-                       class="form-control"
-                       th:value="${password}"
-                       name="password"
-                       style="width: 300px"
-                       readonly>
+
+    <br>
+
+    <div class="container" >
+        <div align="center">
+
+            <form  th:action="@{/user/updateuser}" action="/user/updateuser" method="post">
+                <div class="form-group">
+
+                    <h4>Edit Profile</h4>
 
 
-                <br>
-                <input type="submit" class="btn btn-success" value="UPDATE PROFILE">
-            </div>
-        </form>
+                    <input type="text"
+                           id="user_id"
+                           class="form-control"
+                           th:value="${id}"
+                           name="user_id"
+                           style="width: 300px"
+                           hidden>
 
-    </div><!-- End of align center div -->
+                    <label for="name">Full Name</label>
+                    <input type="text"
+                           id="name"
+                           class="form-control"
+                           th:value="${name}"
+                           name="name"
+                           style="width: 300px"
+                           minlength="3">
 
-</div><!-- End of div class container -->
+                    <label for="email">Email</label>
+                    <input type="text"
+                           id="email"
+                           class="form-control"
+                           th:value="${email}"
+                           name="email"
+                           style="width: 300px">
+
+                    <label for="contact">Contact</label>
+                    <input type="text"
+                           id="contact"
+                           class="form-control"
+                           th:value="${contact}"
+                           style="width: 300px"
+                           name="contact"
+                           minlength="10"
+                           maxlength="10">
+
+
+                    <label for="password">Password(Read Only)</label>
+                    <input type="text"
+                           id="password"
+                           class="form-control"
+                           th:value="${password}"
+                           name="password"
+                           style="width: 300px"
+                           readonly>
+
+
+                    <br>
+                    <input type="submit" class="btn btn-success" value="UPDATE PROFILE">
+                </div>
+            </form>
+
+        </div><!-- End of align center div -->
+
+    </div><!-- End of div class container -->
+
+</div>
+<!--End of Pharmacist Authorization-->
+
+
+
 
 <!--Footer-->
 <div class="card text-center">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -9,109 +9,119 @@
         <title>Confirm Order Delivery</title>
 
     </head>
-
-<!--Nav Bar (header)-->
-<nav class="navbar navbar-light" style="background-color: #A8E4A0;">
-    <a class="navbar-brand" href="#" > PHARMA - Pharmacist </a>
-</nav>
-<!--header end-->
-
 <body>
 
+<!--Start of Pharmacist Authorization-->
+<div sec:authorize="hasAnyAuthority('ROLE_USER')">
 
-<div class="container">
-    <div align="center">
 
-        <form th:action="@{/user/updateorder}" action="/user/updateorder" method="post">
-            <div class="form-group">
+    <!--Nav Bar (header)-->
+    <nav class="navbar navbar-light" style="background-color: #A8E4A0;">
+        <a class="navbar-brand" href="#" > PHARMA - Pharmacist </a>
+    </nav>
+    <!--header end-->
 
-                <label for="order_id">Order ID</label>
-                <input type="text"
-                       id="order_id"
-                       class="form-control"
-                       th:value="${id}"
-                       name="order_id"
-                       style="width: 300px"
-                       readonly>
 
-                <label for="drugname">Drug Name</label>
-                <input type="text"
-                       id="drugname"
-                       class="form-control"
-                       th:value="${drugname}"
-                       name="drugname"
-                       style="width: 300px"
-                       readonly>
 
-                <label for="price">Price</label>
-                <input type="text"
-                       id="price"
-                       class="form-control"
-                       th:value="${price}"
-                       name="price"
-                       style="width: 300px"
-                       readonly>
 
-                <label for="qnty">Quantity</label>
-                <input type="text"
-                       id="qnty"
-                       class="form-control"
-                       th:value="${quantity}"
-                       style="width: 300px"
-                       name="qnty"
-                       readonly>
+    <div class="container">
+        <div align="center">
 
-                <label for="qnty">Unit</label>
-                <input type="text"
-                       id="unit"
-                       class="form-control"
-                       th:value="${unit}"
-                       name="unit"
-                       style="width: 300px"
-                       readonly>
+            <form th:action="@{/user/updateorder}" action="/user/updateorder" method="post">
+                <div class="form-group">
 
-                <label for="total">Total</label>
-                <input type="text"
-                       id="total"
-                       class="form-control"
-                       th:value="${total}"
-                       name="total"
-                       style="width: 300px"
-                       readonly>
+                    <label for="order_id">Order ID</label>
+                    <input type="text"
+                           id="order_id"
+                           class="form-control"
+                           th:value="${id}"
+                           name="order_id"
+                           style="width: 300px"
+                           readonly>
 
-                <label for="email">Email</label>
-                <input type="text"
-                       id="email"
-                       class="form-control"
-                       th:value="${email}"
-                       name="email"
-                       style="width: 300px"
-                       readonly>
+                    <label for="drugname">Drug Name</label>
+                    <input type="text"
+                           id="drugname"
+                           class="form-control"
+                           th:value="${drugname}"
+                           name="drugname"
+                           style="width: 300px"
+                           readonly>
 
-                <label for="date">Date</label>
-                <input type="text"
-                       id="date"
-                       class="form-control"
-                       th:value="${date}"
-                       name="date"
-                       style="width: 300px"
-                       readonly>
+                    <label for="price">Price</label>
+                    <input type="text"
+                           id="price"
+                           class="form-control"
+                           th:value="${price}"
+                           name="price"
+                           style="width: 300px"
+                           readonly>
 
-                <br>
+                    <label for="qnty">Quantity</label>
+                    <input type="text"
+                           id="qnty"
+                           class="form-control"
+                           th:value="${quantity}"
+                           style="width: 300px"
+                           name="qnty"
+                           readonly>
 
-                <label for="updatestatus">Order Status</label>
-                <select id="updatestatus"  class="form-select form-select-lg mb-3"  name="updatestatus">
-                    <option value="Delivered">Delivered</option>
-                </select>
-<br>
-                <input type="submit" class="btn btn-success" value="UPDATE">
-            </div>
-        </form>
+                    <label for="qnty">Unit</label>
+                    <input type="text"
+                           id="unit"
+                           class="form-control"
+                           th:value="${unit}"
+                           name="unit"
+                           style="width: 300px"
+                           readonly>
 
-    </div><!-- End of align center div -->
+                    <label for="total">Total</label>
+                    <input type="text"
+                           id="total"
+                           class="form-control"
+                           th:value="${total}"
+                           name="total"
+                           style="width: 300px"
+                           readonly>
+
+                    <label for="email">Email</label>
+                    <input type="text"
+                           id="email"
+                           class="form-control"
+                           th:value="${email}"
+                           name="email"
+                           style="width: 300px"
+                           readonly>
+
+                    <label for="date">Date</label>
+                    <input type="text"
+                           id="date"
+                           class="form-control"
+                           th:value="${date}"
+                           name="date"
+                           style="width: 300px"
+                           readonly>
+
+                    <br>
+
+                    <label for="updatestatus">Order Status</label>
+                    <select id="updatestatus"  class="form-select form-select-lg mb-3"  name="updatestatus">
+                        <option value="Delivered">Delivered</option>
+                    </select>
+                    <br>
+                    <input type="submit" class="btn btn-success" value="UPDATE">
+                </div>
+            </form>
+
+        </div><!-- End of align center div -->
 
     </div><!-- End of div class container -->
-<br><br>
+    <br><br>
+
+
+</div>
+<!--End of Pharmacist Authorization-->
+
 
 <!--Footer-->
 <div class="card text-center">

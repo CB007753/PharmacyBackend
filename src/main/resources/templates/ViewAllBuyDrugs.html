@@ -1,86 +1,95 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Buy Drugs</title>
 </head>
 <body>
 
-<!--Start of header-->
-<nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #A8E4A0;">
-    <a class="navbar-brand" th:href="@{/user/viewallorders/{status}(status='Delivered')}">PHARMA - Pharmacist</a>
+<!--Start of Pharmacist Authorization-->
+<div sec:authorize="hasAnyAuthority('ROLE_USER')">
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
 
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/user/viewallorders/{status}(status='Delivered')}">Home <span class="sr-only">(current)</span></a>
+    <!--Start of header-->
+    <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #A8E4A0;">
+        <a class="navbar-brand" th:href="@{/user/viewallorders/{status}(status='Delivered')}">PHARMA - Pharmacist</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/user/viewallorders/{status}(status='Delivered')}">Home <span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"  th:href="@{/user/viewallbuydrugs}" > Buy Drugs </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/user/viewonthewayorders/{email}/{status}(email=${useremail.getUsername()},status='On The Way')}">View On the Way Orders</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/user/viewdeliveredorders/{email}/{status}(email=${useremail.getUsername()},status='Delivered')}" >View Order History</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/user/viewprofile/{email}(email=${useremail.getUsername()})}" >View Profile</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/user/contactadminpage}">Contact Admin</a>
+                </li>
+
+            </ul>
+
+
+            <li class="nav-link">
+                <a class="nav-link" th:href="@{/logout}">Log Out</a>
             </li>
+        </div> <!--End of class="collapse navbar-collapse"-->
 
-            <li class="nav-item">
-                <a class="nav-link"  th:href="@{/user/viewallbuydrugs}" > Buy Drugs </a>
-            </li>
+    </nav>
+    <!--End of Header-->
 
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/user/viewonthewayorders/{email}/{status}(email=${useremail.getUsername()},status='On The Way')}">View On the Way Orders</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/user/viewdeliveredorders/{email}/{status}(email=${useremail.getUsername()},status='Delivered')}" >View Order History</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/user/viewprofile/{email}(email=${useremail.getUsername()})}" >View Profile</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/user/contactadminpage}">Contact Admin</a>
-            </li>
-
-        </ul>
+    <br>
+    <div align="center"> <h5>Supplier Market</h5></div>
 
 
-        <li class="nav-link">
-            <a class="nav-link" th:href="@{/logout}">Log Out</a>
-        </li>
-    </div> <!--End of class="collapse navbar-collapse"-->
+    <div align="center">
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Unit</th>
+                <th scope="col">Action</th>
 
-</nav>
-<!--End of Header-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="BuyDrugs: ${buyDrugsList}">
+                <td th:text="${BuyDrugs.getName()}"></td>
+                <td th:text="${BuyDrugs.getDescription()}"></td>
+                <td th:text="${BuyDrugs.getPrice()}"></td>
+                <td th:text="${BuyDrugs.getUnit()}"></td>
+                <td>
+                    <a th:href="@{/user/checkout/{id}(id=${BuyDrugs.getId()})}" class="btn btn-success" style="width: 100px" >Buy</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div><!--END OF div align center-->
 
-<br>
-<div align="center"> <h5>Supplier Market</h5></div>
 
-
-<div align="center">
-    <table class="table">
-        <thead class="thead-light">
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Price</th>
-            <th scope="col">Unit</th>
-            <th scope="col">Action</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="BuyDrugs: ${buyDrugsList}">
-            <td th:text="${BuyDrugs.getName()}"></td>
-            <td th:text="${BuyDrugs.getDescription()}"></td>
-            <td th:text="${BuyDrugs.getPrice()}"></td>
-            <td th:text="${BuyDrugs.getUnit()}"></td>
-            <td>
-                <a th:href="@{/user/checkout/{id}(id=${BuyDrugs.getId()})}" class="btn btn-success" style="width: 100px" >Buy</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div><!--END OF div align center-->
+</div>
+<!--End of Pharmacist Authorization-->
 
 <br><br>
 <!--Footer-->
