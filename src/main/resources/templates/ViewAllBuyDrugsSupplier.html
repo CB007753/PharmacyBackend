@@ -102,8 +102,7 @@
 
     <br><br>
 
-</div>
-<!--End of Supplier Authorization-->
+
 
 
 <!--Footer-->
@@ -114,6 +113,35 @@
 
 </div><!--End of class="card text-center"-->
 <!--End of Footer-->
+</div>
+<!--End of Supplier Authorization-->
+
+
+
+
+
+<!--If logged in user is not supplier-->
+<div sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_USER')">
+
+    <!--Nav Bar (header)-->
+    <nav class="navbar navbar-light" style="background-color: #A8E4A0;">
+        <a class="navbar-brand" href="#" > <b>PHARMA - No Permission To View</b> </a>
+    </nav>
+    <!--header end-->
+
+    <div align="center">
+
+        <img src="https://techlazza.com/wp-content/uploads/2021/03/for-to-fix-403-main.jpg" width="1200px" class="align-content-xxl-stretch" alt="403">
+
+    </div> <!--End of div align="center"  -->
+
+</div>
+<!--End Of -If logged in user is not supplier-->
+
+
+
+
+
 
 </body>
 </html>

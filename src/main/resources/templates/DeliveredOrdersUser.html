@@ -92,20 +92,52 @@
         </table>
     </div><!--END OF div align center-->
 
+    <br><br>
+    <!--Footer-->
+    <div class="card text-center">
+        <div class="card-footer text-muted fixed-bottom">
+            Pharma - Pharmacy Management System 2022
+        </div>
+
+    </div><!--End of class="card text-center"-->
+    <!--End of Footer-->
+
 
 </div>
 <!--End of Pharmacist Authorization-->
 
 
-<br><br>
-<!--Footer-->
-<div class="card text-center">
-    <div class="card-footer text-muted fixed-bottom">
-        Pharma - Pharmacy Management System 2022
-    </div>
 
-</div><!--End of class="card text-center"-->
-<!--End of Footer-->
+
+
+
+
+
+
+<!--If logged in user is not pharmacist-->
+<div sec:authorize="hasAnyAuthority('ROLE_SUPPLIER','ROLE_ADMIN')">
+
+    <!--Nav Bar (header)-->
+    <nav class="navbar navbar-light" style="background-color: #A8E4A0;">
+        <a class="navbar-brand" href="#" > <b>PHARMA - No Permission To View</b> </a>
+    </nav>
+    <!--header end-->
+
+    <div align="center">
+
+        <img src="https://techlazza.com/wp-content/uploads/2021/03/for-to-fix-403-main.jpg" width="1200px" class="align-content-xxl-stretch" alt="403">
+
+    </div> <!--End of div align="center"  -->
+
+</div>
+<!--End Of -If logged in user is not pharmacist-->
+
+
+
+
+
+
+
 
 </body>
 </html>
