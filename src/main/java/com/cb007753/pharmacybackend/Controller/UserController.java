@@ -229,7 +229,7 @@ public class UserController {
 
         }
 
-        //redirecting to OnTheWayOrdersUser html page
+        //redirecting to ViewProfile html page
         return "ViewProfile";
     }
 
