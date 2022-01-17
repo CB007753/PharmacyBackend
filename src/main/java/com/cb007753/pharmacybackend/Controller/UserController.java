@@ -212,25 +212,24 @@ public class UserController {
                               @RequestParam("name") String name,
                               @RequestParam("contact") String contact, Model model) {
 
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails=(UserDetails)authentication.getPrincipal();
+        model.addAttribute("useremail",userDetails);
 
         try {
 
             //updating the user details
             userService.EditProfile(name,contact,email,id);
 
-            Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
-            UserDetails userDetails=(UserDetails)authentication.getPrincipal();
-            model.addAttribute("useremail",userDetails);
-
         } catch (Exception e) {
 
             e.printStackTrace();
-            return "ViewProfile";
+
+            return "redirect:/user/viewprofile/"+userDetails.getUsername()+"?updateunsuccess";
 
         }
 
-        //redirecting to ViewProfile html page
-        return "ViewProfile";
+        return "redirect:/user/viewprofile/"+userDetails.getUsername()+"?updatesuccess";
     }
 
 
@@ -283,6 +282,7 @@ public class UserController {
                 return "redirect:/user/contactadminpage?contactsuccess";
 
             }
+            else {return "redirect:/user/contactadminpage?contactunsuccess";}
 
         }
         catch (Exception e) {
@@ -319,7 +319,7 @@ public class UserController {
     {
         ModelAndView modelAndView = new ModelAndView();
 
-        modelAndView.setViewName("CheckOut");
+        modelAndView.setViewName("CheckOutUser");
 
         Optional<BuyDrugs> drugByID = drugService.getDrugByID(id);
 
@@ -339,7 +339,7 @@ public class UserController {
 
 //    -------------------------------------------------------------------------------------------------
 
-    //this will save the order as on the way to order tablle in database
+    //this will save the order as on the way to order table in database
     @PostMapping(value = "/user/placeorder")
     public String placeOrder(@Valid Order order,
                              @RequestParam("name") String name,
